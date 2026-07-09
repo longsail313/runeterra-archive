@@ -13,13 +13,13 @@ if ($LASTEXITCODE -ne 0 -or -not $remote) {
 
 git add index.html README.md .gitignore .nojekyll scripts
 $hasChanges = git status --porcelain
-if (-not $hasChanges) {
-  Write-Host "No changes to sync."
-  exit 0
+$timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+if ($hasChanges) {
+  git commit -m "Update site $timestamp"
+} else {
+  Write-Host "No local file changes; pushing current branch state."
 }
 
-$timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-git commit -m "Update site $timestamp"
 git push
 git push origin main:gh-pages
 Write-Host "Synced to cloud at $timestamp."
