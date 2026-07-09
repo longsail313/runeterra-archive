@@ -11,7 +11,7 @@ if ($LASTEXITCODE -ne 0 -or -not $remote) {
   throw "No Git remote is configured. Run scripts/publish-github-pages.ps1 first."
 }
 
-git add index.html README.md .gitignore .nojekyll scripts
+git add *.html assets README.md MAINTENANCE.md .gitignore .nojekyll scripts
 $hasChanges = git status --porcelain
 $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 if ($hasChanges) {

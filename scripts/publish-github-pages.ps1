@@ -37,7 +37,7 @@ if ($remotes -contains "origin") {
   git remote add origin $RemoteUrl
 }
 
-git add index.html README.md .gitignore .nojekyll scripts
+git add *.html assets README.md MAINTENANCE.md .gitignore .nojekyll scripts
 $hasChanges = git status --porcelain
 if ($hasChanges) {
   git commit -m "Publish Runeterra archive site"

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>游戏系统资料库 · 符文之地资料馆</title>
+  <meta name="description" content="基于 Riot Data Dragon 与 League Universe 的英雄联盟英雄、技能、背景故事、地区与世界观资料馆。">
+  <link rel="preconnect" href="https://ddragon.leagueoflegends.com">
+  <link rel="preconnect" href="https://d28xe8vt774jo5.cloudfront.net">
+  <link rel="preconnect" href="https://yz.lol.qq.com">
+  <link rel="preconnect" href="https://lol.qq.com">
+  <script>
+    (() => {
+      try {
+        const storedTheme = localStorage.getItem("runeterra-theme");
+        document.documentElement.dataset.theme = storedTheme === "light" ? "light" : "dark";
+      } catch (error) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="systems">
+  <a class="skip-link" href="#systems">跳到主要内容</a>
+
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand" aria-label="符文之地全英雄资料馆">
+        <div class="brand-mark" aria-hidden="true">L</div>
+        <div class="brand-title">
+          <strong>符文之地资料馆</strong>
+          <span>英雄、技能、传记、阵营与世界观</span>
+        </div>
+      </div>
+      <nav class="nav" aria-label="页面导航">
+        <a href="champions.html">英雄</a>
+        <a href="systems.html" class="is-current">系统</a>
+        <a href="items.html">装备</a>
+        <a href="regions.html">阵营</a>
+        <a href="world.html">世界观</a>
+        <a href="sources.html">来源</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换为浅色主题" title="切换主题">
+          <span class="theme-switch-icon" aria-hidden="true"></span>
+          <span id="themeLabel">浅色</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="band alt" id="systems">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <h2>游戏系统资料库</h2>
+            <p>整理召唤师峡谷的核心机制、地图目标、防御建筑、中立野怪、元素巨龙、龙魂与召唤师技能。装备已拆分到独立资料页，便于用图标网格和悬浮窗查看精确属性。</p>
+          </div>
+          <div class="source-row">
+            <a class="source-link" href="https://ddragon.leagueoflegends.com/api/versions.json" target="_blank" rel="noreferrer">Data Dragon</a>
+            <a class="source-link" href="https://lol.qq.com/data/info-heros.shtml" target="_blank" rel="noreferrer">国服资料站</a>
+            <a class="source-link" href="items.html">装备资料库</a>
+          </div>
+        </div>
+
+        <div class="notice" id="systemsNotice">
+          正在准备游戏系统资料。召唤师技能和图标会优先读取官方 Data Dragon；野怪、防御塔、龙魂等机制会使用清晰配图与归类说明。
+        </div>
+
+        <div class="system-controls" role="search">
+          <div class="field">
+            <label for="systemSearchInput">搜索机制、野怪、龙魂、召唤师技能</label>
+            <input id="systemSearchInput" type="search" placeholder="例如：男爵、龙魂、防御塔、视野、闪现">
+          </div>
+          <div class="field">
+            <label for="systemCategorySelect">分类</label>
+            <select id="systemCategorySelect">
+              <option value="">全部分类</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="systemSourceSelect">资料类型</label>
+            <select id="systemSourceSelect">
+              <option value="">全部类型</option>
+              <option value="mechanic">机制卡片</option>
+              <option value="summoner">召唤师技能</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="system-chips" id="systemChips" aria-label="系统分类筛选"></div>
+        <p class="system-summary" id="systemSummary">等待官方数据加载。</p>
+        <div class="system-grid" id="systemsGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">
+      本页面是本地资料整理页，League of Legends、Riot Games、英雄名称、图像和相关素材属于 Riot Games。页面通过官方公开数据与官方站点资源加载资料，不包含非官方百科文本。
+    </div>
+  </footer>
+
+  <script src="assets/app.js" defer></script>
+</body>
+</html>

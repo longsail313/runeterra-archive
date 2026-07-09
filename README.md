@@ -2,6 +2,19 @@
 
 这是一个静态 HTML 网站，可以直接用浏览器打开，也可以发布到 GitHub Pages、Vercel、Netlify、Cloudflare Pages 等静态网站平台。
 
+主要页面：
+
+```text
+index.html       首页
+champions.html   英雄
+systems.html     游戏系统
+items.html       装备
+regions.html     阵营
+world.html       世界观
+sources.html     来源
+assets/          公共样式和脚本
+```
+
 ## 本地打开
 
 直接双击 `index.html` 即可。页面会联网读取 Riot Data Dragon、官方图片与官方技能视频资源。

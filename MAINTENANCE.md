@@ -20,6 +20,14 @@ https://longsail313.github.io/runeterra-archive/
 
 ```text
 index.html
+champions.html
+systems.html
+items.html
+regions.html
+world.html
+sources.html
+assets/styles.css
+assets/app.js
 ```
 
 这个网站是纯静态网站，没有数据库、没有后端服务。主要内容通过浏览器实时读取 Riot Data Dragon、官方图片 CDN、官方技能视频资源，以及国服官方资料链接。
@@ -99,15 +107,23 @@ http://127.0.0.1:4173/
 主要改：
 
 ```text
-index.html
+页面结构：各自的 .html 文件
+公共样式：assets/styles.css
+公共逻辑：assets/app.js
 ```
 
 常见修改位置：
 
 ```text
-页面样式：<style> ... </style>
-页面结构：<body> ... </body>
-英雄数据逻辑：<script> ... </script>
+首页：index.html
+英雄页：champions.html
+系统页：systems.html
+装备页：items.html
+阵营页：regions.html
+世界观页：world.html
+来源页：sources.html
+页面样式：assets/styles.css
+英雄/装备/系统数据逻辑：assets/app.js
 地区说明：REGIONS
 世界观说明：WORLD_TOPICS
 英雄所属地区映射：REGION_BY_ID
@@ -130,7 +146,7 @@ index.html
 git status
 ```
 
-如果你只是改了 `index.html`，最省事的方式是运行：
+如果你改了页面、样式或脚本，最省事的方式是运行：
 
 ```powershell
 .\scripts\sync.ps1
@@ -178,7 +194,7 @@ git push origin main:gh-pages
 .\scripts\watch-sync.ps1
 ```
 
-保持这个 PowerShell 窗口打开。之后每次保存 `index.html`，脚本会自动提交并推送。
+保持这个 PowerShell 窗口打开。之后每次保存 `index.html`，脚本会自动提交并推送。若你主要修改的是 `assets/app.js`、`assets/styles.css` 或其它页面文件，建议直接运行 `scripts/sync.ps1` 手动同步。
 
 如果 PowerShell 禁止运行脚本：
 
@@ -247,10 +263,19 @@ git push origin main:gh-pages
 
 仓库：https://github.com/longsail313/runeterra-archive
 线上：https://longsail313.github.io/runeterra-archive/
-核心文件：index.html
+核心文件：
+- index.html
+- champions.html
+- systems.html
+- items.html
+- regions.html
+- world.html
+- sources.html
+- assets/styles.css
+- assets/app.js
 
 要求：
-1. 这是一个纯静态 HTML 网站，直接修改 index.html。
+1. 这是一个纯静态 HTML 网站，多页面结构；页面改 HTML，样式改 assets/styles.css，逻辑改 assets/app.js。
 2. 英雄资料、技能、图标、原画必须优先来自 Riot Data Dragon。
 3. 背景故事和世界观不能杜撰；中文官方入口优先使用 lol.qq.com 与 yz.lol.qq.com。
 4. 技能演示视频只使用官方资源路径；加载失败时显示官方页面入口，不用第三方视频替代。
@@ -268,7 +293,7 @@ git push origin main:gh-pages
 git pull
 ```
 
-修改 `index.html`。
+修改对应页面、`assets/styles.css` 或 `assets/app.js`。
 
 本地打开检查。
 

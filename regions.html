@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>符文之地资料馆</title>
+  <title>阵营与地区 · 符文之地资料馆</title>
   <meta name="description" content="基于 Riot Data Dragon 与 League Universe 的英雄联盟英雄、技能、背景故事、地区与世界观资料馆。">
   <link rel="preconnect" href="https://ddragon.leagueoflegends.com">
   <link rel="preconnect" href="https://d28xe8vt774jo5.cloudfront.net">
@@ -21,8 +21,8 @@
   </script>
   <link rel="stylesheet" href="assets/styles.css">
 </head>
-<body data-page="home">
-  <a class="skip-link" href="#top">跳到主要内容</a>
+<body data-page="regions">
+  <a class="skip-link" href="#regions">跳到主要内容</a>
 
   <header class="topbar">
     <div class="shell topbar-inner">
@@ -37,7 +37,7 @@
         <a href="champions.html">英雄</a>
         <a href="systems.html">系统</a>
         <a href="items.html">装备</a>
-        <a href="regions.html">阵营</a>
+        <a href="regions.html" class="is-current">阵营</a>
         <a href="world.html">世界观</a>
         <a href="sources.html">来源</a>
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换为浅色主题" title="切换主题">
@@ -49,33 +49,19 @@
   </header>
 
   <main>
-    <section class="hero" id="top" style="--hero-image: url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/AurelionSol_0.jpg')">
-      <div class="shell hero-content">
-        <div>
-          <div class="kicker">Official-data first</div>
-          <h1>英雄联盟全英雄宇宙资料馆</h1>
-          <p class="lead">
-            自动读取 Riot Data Dragon 的最新英雄资料，使用官方原画、头像、技能图标，并按官方英雄页资源路径加载技能演示视频；中文世界观与地区入口优先指向国服官方宇宙与符文之地地图。
-          </p>
-          <div class="hero-actions">
-            <a class="primary-button" href="champions.html">浏览全部英雄</a>
-            <a class="ghost-button" href="sources.html">查看资料来源</a>
+    <section class="band" id="regions">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <h2>阵营与地区</h2>
+            <p>地区简介保持克制，只做官方宇宙设定的索引和摘要；需要深入阅读时，进入国服官方宇宙地区页或符文之地地图。</p>
+          </div>
+          <div class="source-row">
+            <a class="source-link" href="https://yz.lol.qq.com/zh_CN/" target="_blank" rel="noreferrer">国服官方宇宙</a>
+            <a class="source-link" href="https://yz.lol.qq.com/zh_CN/map/index.html" target="_blank" rel="noreferrer">符文之地地图</a>
           </div>
         </div>
-        <div class="status-board" aria-live="polite">
-          <div class="metric">
-            <small>Data Dragon 版本</small>
-            <strong id="versionMetric">连接中</strong>
-          </div>
-          <div class="metric">
-            <small>英雄数量</small>
-            <strong id="countMetric">加载中</strong>
-          </div>
-          <div class="metric">
-            <small>资料策略</small>
-            <strong>官方来源优先</strong>
-          </div>
-        </div>
+        <div class="regions-grid" id="regionsGrid"></div>
       </div>
     </section>
   </main>
