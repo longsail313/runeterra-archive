@@ -21,4 +21,5 @@ if (-not $hasChanges) {
 $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 git commit -m "Update site $timestamp"
 git push
+git push origin main:gh-pages
 Write-Host "Synced to cloud at $timestamp."

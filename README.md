@@ -16,12 +16,18 @@
 .\scripts\publish-github-pages.ps1 -RemoteUrl "https://github.com/你的用户名/runeterra-archive.git"
 ```
 
-4. 打开 GitHub 仓库的 Settings -> Pages，把 Source 设置为 `Deploy from a branch`，Branch 选择 `main`，目录选择 `/root`。
+4. 打开 GitHub 仓库的 Settings -> Pages，把 Source 设置为 `Deploy from a branch`，Branch 选择 `gh-pages`，目录选择 `/root`。
 
 之后每次更新本地文件，运行：
 
 ```powershell
 .\scripts\sync.ps1
+```
+
+同步脚本会同时更新 `main` 和 `gh-pages`，线上地址通常是：
+
+```text
+https://longsail313.github.io/runeterra-archive/
 ```
 
 ## 自动同步

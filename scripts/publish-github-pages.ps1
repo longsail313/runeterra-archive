@@ -44,7 +44,9 @@ if ($hasChanges) {
 }
 
 git push -u origin main
+git push origin main:gh-pages
 
 Write-Host ""
 Write-Host "Published source files to GitHub."
-Write-Host "Now enable GitHub Pages: Settings -> Pages -> Deploy from a branch -> main / root."
+Write-Host "If needed, enable GitHub Pages: Settings -> Pages -> Deploy from a branch -> gh-pages / root."
+Write-Host "Site URL: https://longsail313.github.io/runeterra-archive/"
