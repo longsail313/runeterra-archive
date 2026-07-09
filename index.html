@@ -1,0 +1,1872 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>符文之地全英雄资料馆</title>
+  <meta name="description" content="基于 Riot Data Dragon 与 League Universe 的英雄联盟英雄、技能、背景故事、地区与世界观资料馆。">
+  <link rel="preconnect" href="https://ddragon.leagueoflegends.com">
+  <link rel="preconnect" href="https://d28xe8vt774jo5.cloudfront.net">
+  <link rel="preconnect" href="https://yz.lol.qq.com">
+  <link rel="preconnect" href="https://lol.qq.com">
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f5ead4;
+      --muted: #b8ad98;
+      --faint: #817565;
+      --gold: #c8aa6e;
+      --gold-strong: #f0d489;
+      --blue: #0ac8b9;
+      --crimson: #c44b4c;
+      --jade: #65c889;
+      --paper: #10161b;
+      --panel: rgba(12, 18, 24, .84);
+      --panel-solid: #111922;
+      --line: rgba(200, 170, 110, .28);
+      --line-blue: rgba(10, 200, 185, .24);
+      --shadow: 0 18px 60px rgba(0, 0, 0, .42);
+      --radius: 8px;
+      --max: 1440px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: #070b10;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", Arial, sans-serif;
+      letter-spacing: 0;
+      background:
+        linear-gradient(180deg, rgba(7, 11, 16, .78), #071017 40%, #05070a 100%),
+        radial-gradient(circle at 18% 8%, rgba(10, 200, 185, .14), transparent 30%),
+        radial-gradient(circle at 78% 18%, rgba(196, 75, 76, .12), transparent 28%),
+        #070b10;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .skip-link {
+      position: fixed;
+      left: 12px;
+      top: 12px;
+      z-index: 40;
+      transform: translateY(-160%);
+      padding: 10px 12px;
+      background: #010a13;
+      color: var(--gold-strong);
+      border: 1px solid var(--gold);
+      border-radius: 6px;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .shell {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      border-bottom: 1px solid rgba(200, 170, 110, .18);
+      background: rgba(5, 9, 13, .86);
+      backdrop-filter: blur(16px);
+    }
+
+    .topbar-inner {
+      min-height: 66px;
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) auto;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .brand {
+      min-width: 0;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--gold);
+      color: var(--gold-strong);
+      background: linear-gradient(135deg, rgba(200, 170, 110, .18), rgba(10, 200, 185, .08));
+      border-radius: 6px;
+      font-family: Georgia, serif;
+      font-weight: 700;
+    }
+
+    .brand-title {
+      min-width: 0;
+    }
+
+    .brand-title strong {
+      display: block;
+      color: var(--gold-strong);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(18px, 2vw, 24px);
+      line-height: 1.05;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-title span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a,
+    .source-link,
+    .ghost-button {
+      min-height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid rgba(200, 170, 110, .32);
+      border-radius: 6px;
+      background: rgba(4, 10, 15, .56);
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .18s ease, color .18s ease, background .18s ease;
+    }
+
+    .nav a:hover,
+    .source-link:hover,
+    .ghost-button:hover {
+      border-color: var(--gold);
+      color: var(--gold-strong);
+      background: rgba(200, 170, 110, .12);
+    }
+
+    .hero {
+      min-height: 680px;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(200, 170, 110, .16);
+      background-color: #08121a;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(90deg, rgba(5, 7, 10, .94) 0%, rgba(5, 7, 10, .58) 36%, rgba(5, 7, 10, .04) 72%),
+        linear-gradient(180deg, rgba(5, 7, 10, .02) 0%, rgba(5, 7, 10, .76) 100%),
+        var(--hero-image);
+      background-size: cover;
+      background-position: center top;
+      transform: scale(1.02);
+      filter: saturate(1.06) contrast(1.05);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 90px;
+      background: linear-gradient(180deg, transparent, #071017);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 140px 0 72px;
+      display: grid;
+      grid-template-columns: minmax(280px, 720px) minmax(240px, 1fr);
+      gap: 36px;
+      align-items: end;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--blue);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: .08em;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 44px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", "SimSun", serif;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      margin-top: 18px;
+      max-width: 760px;
+      color: var(--gold-strong);
+      font-size: clamp(42px, 7vw, 88px);
+      line-height: .96;
+      text-shadow: 0 12px 42px rgba(0, 0, 0, .72);
+    }
+
+    .lead {
+      max-width: 720px;
+      margin: 22px 0 0;
+      color: #e1d7c3;
+      font-size: clamp(16px, 1.8vw, 20px);
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .primary-button {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border: 1px solid #d7bd7b;
+      border-radius: 6px;
+      color: #061216;
+      background: linear-gradient(180deg, #f0d489, #b9934f);
+      text-decoration: none;
+      font-weight: 800;
+      box-shadow: 0 12px 28px rgba(200, 170, 110, .18);
+    }
+
+    .primary-button:hover {
+      filter: brightness(1.07);
+    }
+
+    .status-board {
+      display: grid;
+      gap: 10px;
+      align-self: end;
+    }
+
+    .metric {
+      min-height: 80px;
+      padding: 14px;
+      border: 1px solid rgba(200, 170, 110, .22);
+      background: rgba(4, 10, 15, .66);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius);
+    }
+
+    .metric small {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 6px;
+      color: var(--gold-strong);
+      font-size: 22px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .band {
+      padding: 58px 0;
+      border-bottom: 1px solid rgba(200, 170, 110, .12);
+      background: linear-gradient(180deg, rgba(7, 16, 23, .98), rgba(8, 10, 13, .98));
+    }
+
+    .band.alt {
+      background: linear-gradient(180deg, rgba(8, 10, 13, .98), rgba(11, 18, 20, .98));
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) auto;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 22px;
+    }
+
+    .section-heading h2 {
+      color: var(--gold-strong);
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.05;
+    }
+
+    .section-heading p {
+      max-width: 760px;
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .source-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: minmax(240px, 1fr) minmax(150px, 220px) minmax(150px, 220px);
+      gap: 10px;
+      margin: 22px 0;
+      align-items: center;
+    }
+
+    .field {
+      position: relative;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid rgba(200, 170, 110, .28);
+      border-radius: 6px;
+      color: var(--ink);
+      background: #071019;
+      outline: none;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(10, 200, 185, .12);
+    }
+
+    .role-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 0 0 22px;
+    }
+
+    .chip {
+      min-height: 34px;
+      padding: 7px 11px;
+      border: 1px solid rgba(200, 170, 110, .28);
+      border-radius: 6px;
+      color: var(--muted);
+      background: rgba(4, 10, 15, .62);
+    }
+
+    .chip.is-active {
+      color: #041214;
+      border-color: var(--blue);
+      background: linear-gradient(180deg, #0ac8b9, #078a86);
+      font-weight: 800;
+    }
+
+    .content-layout {
+      display: grid;
+      grid-template-columns: minmax(280px, 430px) minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .champion-rail {
+      min-height: 620px;
+      max-height: 860px;
+      overflow: auto;
+      border: 1px solid rgba(200, 170, 110, .2);
+      background: rgba(4, 10, 15, .72);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      scrollbar-color: var(--gold) transparent;
+    }
+
+    .champion-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+      gap: 1px;
+      padding: 1px;
+    }
+
+    .champion-card {
+      min-height: 176px;
+      border: 0;
+      border-radius: 0;
+      display: grid;
+      grid-template-rows: 116px auto;
+      color: var(--ink);
+      background: #0b141b;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .champion-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid transparent;
+      pointer-events: none;
+      transition: border-color .16s ease, box-shadow .16s ease;
+    }
+
+    .champion-card:hover::after,
+    .champion-card.is-active::after {
+      border-color: var(--gold);
+      box-shadow: inset 0 0 0 1px rgba(200, 170, 110, .3);
+    }
+
+    .champion-card img {
+      width: 100%;
+      height: 116px;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform .22s ease;
+    }
+
+    .champion-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .champion-card-body {
+      min-width: 0;
+      padding: 10px;
+      background: linear-gradient(180deg, rgba(8, 14, 20, .92), rgba(7, 10, 13, .98));
+    }
+
+    .champion-card strong,
+    .champion-card span {
+      display: block;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .champion-card strong {
+      color: var(--gold-strong);
+      font-size: 14px;
+    }
+
+    .champion-card span {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .detail {
+      min-height: 620px;
+      border: 1px solid rgba(200, 170, 110, .2);
+      background: rgba(5, 11, 16, .72);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .detail-hero {
+      position: relative;
+      min-height: 360px;
+      display: grid;
+      align-items: end;
+      padding: 28px;
+      background-color: #0b141b;
+      overflow: hidden;
+    }
+
+    .detail-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(90deg, rgba(4, 8, 11, .94), rgba(4, 8, 11, .48), rgba(4, 8, 11, .1)),
+        linear-gradient(180deg, transparent, rgba(5, 10, 14, .94)),
+        var(--detail-image);
+      background-size: cover;
+      background-position: center top;
+      transform: scale(1.02);
+    }
+
+    .detail-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+    }
+
+    .eyebrow {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .detail h2 {
+      margin-top: 10px;
+      color: var(--gold-strong);
+      font-size: clamp(32px, 5vw, 58px);
+      line-height: 1;
+    }
+
+    .detail-subtitle {
+      margin: 8px 0 0;
+      color: #eadfc9;
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .tagline {
+      margin: 18px 0 0;
+      color: #e1d6c2;
+      line-height: 1.78;
+    }
+
+    .meta-strip {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .meta-pill {
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 9px;
+      border: 1px solid rgba(200, 170, 110, .26);
+      border-radius: 6px;
+      color: var(--ink);
+      background: rgba(4, 10, 15, .66);
+      font-size: 12px;
+    }
+
+    .detail-body {
+      display: grid;
+      gap: 22px;
+      padding: 24px;
+    }
+
+    .text-block h3,
+    .abilities h3 {
+      color: var(--gold-strong);
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .text-block p {
+      margin: 0;
+      color: #d7cdbb;
+      line-height: 1.85;
+    }
+
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .abilities-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .ability {
+      display: grid;
+      grid-template-columns: minmax(260px, 1fr) minmax(260px, 420px);
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid rgba(200, 170, 110, .18);
+      border-radius: var(--radius);
+      background: rgba(8, 14, 20, .72);
+    }
+
+    .ability-copy {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 12px;
+      align-content: start;
+      min-width: 0;
+    }
+
+    .ability-icon {
+      width: 64px;
+      height: 64px;
+      border: 1px solid var(--gold);
+      border-radius: 6px;
+      background: #061017;
+      object-fit: cover;
+    }
+
+    .ability-name {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+
+    .ability-name strong {
+      color: var(--gold-strong);
+      font-size: 18px;
+      line-height: 1.2;
+      overflow-wrap: anywhere;
+    }
+
+    .ability-key {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .ability-desc {
+      margin: 8px 0 0;
+      color: #d6ccba;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    .ability-facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .ability-video {
+      min-width: 0;
+    }
+
+    .ability-video video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border: 1px solid rgba(200, 170, 110, .24);
+      border-radius: 6px;
+      background: #02070b;
+    }
+
+    .video-fallback {
+      margin-top: 8px;
+      padding: 8px;
+      border: 1px dashed rgba(200, 170, 110, .3);
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .video-fallback[hidden] {
+      display: none;
+    }
+
+    .regions-grid,
+    .world-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 12px;
+    }
+
+    .region-card,
+    .world-card,
+    .source-card {
+      border: 1px solid rgba(200, 170, 110, .2);
+      border-radius: var(--radius);
+      background: rgba(6, 12, 17, .74);
+      overflow: hidden;
+    }
+
+    .region-card {
+      display: grid;
+      grid-template-rows: 142px 1fr;
+    }
+
+    .region-card img {
+      width: 100%;
+      height: 142px;
+      object-fit: cover;
+      object-position: center top;
+      filter: saturate(1.06) contrast(1.04);
+    }
+
+    .region-card-body,
+    .world-card,
+    .source-card {
+      padding: 14px;
+    }
+
+    .region-card h3,
+    .world-card h3,
+    .source-card h3 {
+      color: var(--gold-strong);
+      font-size: 20px;
+      line-height: 1.18;
+    }
+
+    .region-card p,
+    .world-card p,
+    .source-card p {
+      margin: 9px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .region-card .link-row,
+    .world-card .link-row,
+    .source-card .link-row {
+      margin-top: 12px;
+    }
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .notice {
+      padding: 14px;
+      border: 1px solid rgba(10, 200, 185, .32);
+      border-radius: var(--radius);
+      color: #d8f7f4;
+      background: rgba(10, 200, 185, .08);
+      line-height: 1.7;
+    }
+
+    .empty {
+      padding: 24px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .skeleton {
+      min-height: 18px;
+      border-radius: 5px;
+      background: linear-gradient(90deg, rgba(200, 170, 110, .08), rgba(200, 170, 110, .18), rgba(200, 170, 110, .08));
+      background-size: 220% 100%;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: -220% 0;
+      }
+    }
+
+    footer {
+      padding: 30px 0 42px;
+      color: var(--faint);
+      background: #05070a;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 1180px) {
+      .hero-content,
+      .content-layout,
+      .ability {
+        grid-template-columns: 1fr;
+      }
+
+      .status-board {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .champion-rail {
+        min-height: 0;
+        max-height: 460px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .shell {
+        width: min(100% - 24px, var(--max));
+      }
+
+      .topbar-inner,
+      .section-heading,
+      .filters,
+      .source-grid,
+      .status-board {
+        grid-template-columns: 1fr;
+      }
+
+      .nav,
+      .source-row {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        min-height: 620px;
+      }
+
+      .hero-content {
+        padding-top: 112px;
+        padding-bottom: 44px;
+      }
+
+      .hero::before {
+        background-image:
+          linear-gradient(180deg, rgba(5, 7, 10, .62), rgba(5, 7, 10, .94) 70%, rgba(5, 7, 10, .98)),
+          var(--hero-image);
+        background-position: 58% top;
+      }
+
+      .champion-grid {
+        grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+      }
+
+      .detail-hero {
+        min-height: 300px;
+        padding: 20px;
+      }
+
+      .detail-body {
+        padding: 18px;
+      }
+
+      .ability-copy {
+        grid-template-columns: 54px 1fr;
+      }
+
+      .ability-icon {
+        width: 54px;
+        height: 54px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#champions">跳到英雄资料</a>
+
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand" aria-label="符文之地全英雄资料馆">
+        <div class="brand-mark" aria-hidden="true">L</div>
+        <div class="brand-title">
+          <strong>符文之地资料馆</strong>
+          <span>英雄、技能、传记、阵营与世界观</span>
+        </div>
+      </div>
+      <nav class="nav" aria-label="页面导航">
+        <a href="#champions">英雄</a>
+        <a href="#regions">阵营</a>
+        <a href="#world">世界观</a>
+        <a href="#sources">来源</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top" style="--hero-image: url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/AurelionSol_0.jpg')">
+      <div class="shell hero-content">
+        <div>
+          <div class="kicker">Official-data first</div>
+          <h1>英雄联盟全英雄宇宙资料馆</h1>
+          <p class="lead">
+            自动读取 Riot Data Dragon 的最新英雄资料，使用官方原画、头像、技能图标，并按官方英雄页资源路径加载技能演示视频；中文世界观与地区入口优先指向国服官方宇宙与符文之地地图。
+          </p>
+          <div class="hero-actions">
+            <a class="primary-button" href="#champions">浏览全部英雄</a>
+            <a class="ghost-button" href="#sources">查看资料来源</a>
+          </div>
+        </div>
+        <div class="status-board" aria-live="polite">
+          <div class="metric">
+            <small>Data Dragon 版本</small>
+            <strong id="versionMetric">连接中</strong>
+          </div>
+          <div class="metric">
+            <small>英雄数量</small>
+            <strong id="countMetric">加载中</strong>
+          </div>
+          <div class="metric">
+            <small>资料策略</small>
+            <strong>官方来源优先</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="champions">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <h2>全英雄索引</h2>
+            <p>按姓名、称号、定位与地区筛选。点击英雄后会加载该英雄的完整 Data Dragon 详情、背景故事、五个技能与官方演示视频。</p>
+          </div>
+          <div class="source-row">
+            <a class="source-link" href="https://developer.riotgames.com/docs/lol#data-dragon" target="_blank" rel="noreferrer">Data Dragon</a>
+            <a class="source-link" href="https://lol.qq.com/data/info-heros.shtml" target="_blank" rel="noreferrer">国服官方英雄资料</a>
+          </div>
+        </div>
+
+        <div class="notice" id="loadNotice">
+          正在连接 Riot 官方数据源。若你所在网络拦截 Riot/CDN 域名，页面会保留结构并提示需要联网；资料内容不会用第三方百科或自写故事补位。
+        </div>
+
+        <div class="filters" role="search">
+          <div class="field">
+            <label for="searchInput">搜索英雄、称号、地区</label>
+            <input id="searchInput" type="search" placeholder="例如：阿狸、暗裔、Demacia、艾欧尼亚">
+          </div>
+          <div class="field">
+            <label for="regionSelect">阵营 / 地区</label>
+            <select id="regionSelect">
+              <option value="">全部地区</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sortSelect">排序</label>
+            <select id="sortSelect">
+              <option value="name">按英雄名</option>
+              <option value="region">按地区</option>
+              <option value="role">按定位</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="role-chips" id="roleChips" aria-label="定位筛选"></div>
+
+        <div class="content-layout">
+          <aside class="champion-rail" aria-label="英雄列表">
+            <div class="champion-grid" id="championGrid"></div>
+          </aside>
+          <article class="detail" id="championDetail" aria-live="polite">
+            <div class="empty">
+              <div class="skeleton" style="width: 60%; height: 28px;"></div>
+              <br>
+              <div class="skeleton" style="width: 88%;"></div>
+              <br>
+              <div class="skeleton" style="width: 74%;"></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="band alt" id="regions">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <h2>阵营与地区</h2>
+            <p>地区简介保持克制，只做官方宇宙设定的索引和摘要；需要深入阅读时，进入国服官方宇宙地区页或符文之地地图。</p>
+          </div>
+          <div class="source-row">
+            <a class="source-link" href="https://yz.lol.qq.com/zh_CN/" target="_blank" rel="noreferrer">国服官方宇宙</a>
+            <a class="source-link" href="https://yz.lol.qq.com/zh_CN/map/index.html" target="_blank" rel="noreferrer">符文之地地图</a>
+          </div>
+        </div>
+        <div class="regions-grid" id="regionsGrid"></div>
+      </div>
+    </section>
+
+    <section class="band" id="world">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <h2>世界观脉络</h2>
+            <p>这里不是再创作，而是把官方可继续阅读的世界观入口整理成路径：地区、英雄传记、故事、地图与重大设定主题。</p>
+          </div>
+        </div>
+        <div class="world-grid" id="worldGrid"></div>
+      </div>
+    </section>
+
+    <section class="band alt" id="sources">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <h2>来源与边界</h2>
+            <p>为避免杜撰，页面只展示 Riot 官方可验证内容；无法从官方公开路径确认的视频或长篇故事，不用第三方资料替代。</p>
+          </div>
+        </div>
+        <div class="source-grid">
+          <div class="source-card">
+            <h3>英雄与技能</h3>
+            <p>英雄列表、技能名、技能说明、头像、技能图标、默认原画和背景故事来自 Riot Data Dragon 的当前版本。</p>
+            <div class="link-row">
+              <a class="source-link" href="https://developer.riotgames.com/docs/lol#data-dragon" target="_blank" rel="noreferrer">打开官方文档</a>
+            </div>
+          </div>
+          <div class="source-card">
+            <h3>技能视频</h3>
+            <p>视频按官方英雄前端资源的英雄数字 ID 路径生成，并以浏览器实际加载结果为准。不可加载时，显示对应官方英雄页入口。</p>
+            <div class="link-row">
+              <a class="source-link" href="https://lol.qq.com/data/info-heros.shtml" target="_blank" rel="noreferrer">打开国服官方英雄资料</a>
+            </div>
+          </div>
+          <div class="source-card">
+            <h3>背景与宇宙</h3>
+            <p>地区、世界地图、英雄传记、官方故事和多媒体宇宙资料统一回到国服官方宇宙与符文之地地图。</p>
+            <div class="link-row">
+              <a class="source-link" href="https://yz.lol.qq.com/zh_CN/" target="_blank" rel="noreferrer">国服官方宇宙</a>
+              <a class="source-link" href="https://yz.lol.qq.com/zh_CN/map/index.html" target="_blank" rel="noreferrer">符文之地地图</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">
+      本页面是本地资料整理页，League of Legends、Riot Games、英雄名称、图像和相关素材属于 Riot Games。页面通过官方公开数据与官方站点资源加载资料，不包含非官方百科文本。
+    </div>
+  </footer>
+
+  <script>
+    const DDRAGON = "https://ddragon.leagueoflegends.com";
+    const DEFAULT_VERSION = "16.12.1";
+    const LOCALE = "zh_CN";
+    const ROLE_LABELS = {
+      Assassin: "刺客",
+      Fighter: "战士",
+      Mage: "法师",
+      Marksman: "射手",
+      Support: "辅助",
+      Tank: "坦克"
+    };
+    const REGIONS = [
+      {
+        id: "Runeterra",
+        label: "符文之地",
+        rep: "Ryze",
+        url: "https://yz.lol.qq.com/zh_CN/map/index.html",
+        summary: "承载英雄联盟故事的世界整体，也是无法归入单一地区或跨地区角色的归档标签。"
+      },
+      {
+        id: "BandleCity",
+        label: "班德尔城",
+        rep: "Teemo",
+        url: "https://yz.lol.qq.com/zh_CN/region/bandle-city/",
+        summary: "约德尔人与异界通道相关的神秘领域，常与符文之地各处产生交汇。"
+      },
+      {
+        id: "Bilgewater",
+        label: "比尔吉沃特",
+        rep: "MissFortune",
+        url: "https://yz.lol.qq.com/zh_CN/region/bilgewater/",
+        summary: "海盗、赏金猎人、港口帮派与猎海兽文化交错的海港城邦。"
+      },
+      {
+        id: "Demacia",
+        label: "德玛西亚",
+        rep: "Lux",
+        url: "https://yz.lol.qq.com/zh_CN/region/demacia/",
+        summary: "重视秩序、荣誉和军纪的王国，对魔法与法师问题有长期社会冲突。"
+      },
+      {
+        id: "Freljord",
+        label: "弗雷尔卓德",
+        rep: "Ashe",
+        url: "https://yz.lol.qq.com/zh_CN/region/freljord/",
+        summary: "寒冷北境，部族、臻冰、古老半神与女巫传说共同塑造其历史。"
+      },
+      {
+        id: "Ionia",
+        label: "艾欧尼亚",
+        rep: "Irelia",
+        url: "https://yz.lol.qq.com/zh_CN/region/ionia/",
+        summary: "自然与灵界联系紧密的群岛大陆，传统、均衡与战争创伤并存。"
+      },
+      {
+        id: "Ixtal",
+        label: "以绪塔尔",
+        rep: "Qiyana",
+        url: "https://yz.lol.qq.com/zh_CN/region/ixtal/",
+        summary: "以元素魔法与隐秘文明著称，位于东南丛林深处。"
+      },
+      {
+        id: "Noxus",
+        label: "诺克萨斯",
+        rep: "Darius",
+        url: "https://yz.lol.qq.com/zh_CN/region/noxus/",
+        summary: "扩张主义帝国，强调力量、才能和野心，并吸纳被征服者中的强者。"
+      },
+      {
+        id: "Piltover",
+        label: "皮尔特沃夫",
+        rep: "Caitlyn",
+        url: "https://yz.lol.qq.com/zh_CN/region/piltover/",
+        summary: "贸易、学院、海克斯科技与上城秩序构成的进步之城。"
+      },
+      {
+        id: "ShadowIsles",
+        label: "暗影岛",
+        rep: "Thresh",
+        url: "https://yz.lol.qq.com/zh_CN/region/shadow-isles/",
+        summary: "破败之咒后的亡灵群岛，曾经的福光岛已被黑雾与诅咒吞没。"
+      },
+      {
+        id: "Shurima",
+        label: "恕瑞玛",
+        rep: "Azir",
+        url: "https://yz.lol.qq.com/zh_CN/region/shurima/",
+        summary: "沙漠帝国遗产、飞升者、太阳圆盘与虚空灾厄共同组成其核心叙事。"
+      },
+      {
+        id: "Targon",
+        label: "巨神峰",
+        rep: "Diana",
+        url: "https://yz.lol.qq.com/zh_CN/region/mount-targon/",
+        summary: "通往天界力量的圣山与周边民族，星灵、皎月与烈阳信仰在此交织。"
+      },
+      {
+        id: "Void",
+        label: "虚空",
+        rep: "Kaisa",
+        url: "https://yz.lol.qq.com/zh_CN/region/the-void/",
+        summary: "现实之外的吞噬性存在与其造物，是符文之地最古老的威胁之一。"
+      },
+      {
+        id: "Zaun",
+        label: "祖安",
+        rep: "Ekko",
+        url: "https://yz.lol.qq.com/zh_CN/region/zaun/",
+        summary: "皮城下方的工业地下城，炼金科技、底层社区与危险实验并存。"
+      },
+      {
+        id: "Icathia",
+        label: "艾卡西亚",
+        rep: "Jax",
+        url: "https://yz.lol.qq.com/zh_CN/map/index.html",
+        summary: "与古代恕瑞玛和虚空裂隙紧密相关的历史地点，适合通过官方地图继续查阅。"
+      },
+      {
+        id: "Camavor",
+        label: "卡玛维亚",
+        rep: "Viego",
+        url: "https://yz.lol.qq.com/zh_CN/map/index.html",
+        summary: "破败之王等故事牵涉的古老王国，相关内容以英雄传记和官方故事为准。"
+      }
+    ];
+
+    const REGION_LABEL_BY_ID = Object.fromEntries(REGIONS.map((region) => [region.id, region.label]));
+    const REGION_BY_ID = {
+      Aatrox: "Runeterra",
+      Ahri: "Ionia",
+      Akali: "Ionia",
+      Akshan: "Shurima",
+      Alistar: "Runeterra",
+      Ambessa: "Noxus",
+      Amumu: "Shurima",
+      Anivia: "Freljord",
+      Annie: "Runeterra",
+      Aphelios: "Targon",
+      Ashe: "Freljord",
+      AurelionSol: "Targon",
+      Aurora: "Freljord",
+      Azir: "Shurima",
+      Bard: "Runeterra",
+      Belveth: "Void",
+      Blitzcrank: "Zaun",
+      Brand: "Runeterra",
+      Braum: "Freljord",
+      Briar: "Noxus",
+      Caitlyn: "Piltover",
+      Camille: "Piltover",
+      Cassiopeia: "Noxus",
+      Chogath: "Void",
+      Corki: "BandleCity",
+      Darius: "Noxus",
+      Diana: "Targon",
+      Draven: "Noxus",
+      DrMundo: "Zaun",
+      Ekko: "Zaun",
+      Elise: "Noxus",
+      Evelynn: "Runeterra",
+      Ezreal: "Piltover",
+      FiddleSticks: "Runeterra",
+      Fiddlesticks: "Runeterra",
+      Fiora: "Demacia",
+      Fizz: "Bilgewater",
+      Galio: "Demacia",
+      Gangplank: "Bilgewater",
+      Garen: "Demacia",
+      Gnar: "Freljord",
+      Gragas: "Freljord",
+      Graves: "Bilgewater",
+      Gwen: "ShadowIsles",
+      Hecarim: "ShadowIsles",
+      Heimerdinger: "Piltover",
+      Hwei: "Ionia",
+      Illaoi: "Bilgewater",
+      Irelia: "Ionia",
+      Ivern: "Ionia",
+      Janna: "Zaun",
+      JarvanIV: "Demacia",
+      Jax: "Runeterra",
+      Jayce: "Piltover",
+      Jhin: "Ionia",
+      Jinx: "Zaun",
+      Kaisa: "Void",
+      Kalista: "ShadowIsles",
+      Karma: "Ionia",
+      Karthus: "ShadowIsles",
+      Kassadin: "Void",
+      Katarina: "Noxus",
+      Kayle: "Demacia",
+      Kayn: "Ionia",
+      Kennen: "Ionia",
+      Khazix: "Void",
+      Kindred: "Runeterra",
+      Kled: "Noxus",
+      KogMaw: "Void",
+      KSante: "Shurima",
+      Leblanc: "Noxus",
+      LeBlanc: "Noxus",
+      LeeSin: "Ionia",
+      Leona: "Targon",
+      Lillia: "Ionia",
+      Lissandra: "Freljord",
+      Locke: "Runeterra",
+      Lucian: "Demacia",
+      Lulu: "BandleCity",
+      Lux: "Demacia",
+      Malphite: "Ixtal",
+      Malzahar: "Void",
+      Maokai: "ShadowIsles",
+      MasterYi: "Ionia",
+      Mel: "Noxus",
+      Milio: "Ixtal",
+      MissFortune: "Bilgewater",
+      Mordekaiser: "Noxus",
+      Morgana: "Demacia",
+      Naafiri: "Shurima",
+      Nami: "Runeterra",
+      Nasus: "Shurima",
+      Nautilus: "Bilgewater",
+      Neeko: "Ixtal",
+      Nidalee: "Ixtal",
+      Nilah: "Bilgewater",
+      Nocturne: "Runeterra",
+      Norra: "BandleCity",
+      Nunu: "Freljord",
+      Olaf: "Freljord",
+      Orianna: "Piltover",
+      Ornn: "Freljord",
+      Pantheon: "Targon",
+      Poppy: "Demacia",
+      Pyke: "Bilgewater",
+      Qiyana: "Ixtal",
+      Quinn: "Demacia",
+      Rakan: "Ionia",
+      Rammus: "Shurima",
+      RekSai: "Void",
+      Rell: "Noxus",
+      Renata: "Zaun",
+      RenataGlasc: "Zaun",
+      Renekton: "Shurima",
+      Rengar: "Ixtal",
+      Riven: "Noxus",
+      Rumble: "BandleCity",
+      Ryze: "Runeterra",
+      Samira: "Noxus",
+      Sejuani: "Freljord",
+      Senna: "Runeterra",
+      Seraphine: "Piltover",
+      Sett: "Ionia",
+      Shaco: "Runeterra",
+      Shen: "Ionia",
+      Shyvana: "Demacia",
+      Singed: "Zaun",
+      Sion: "Noxus",
+      Sivir: "Shurima",
+      Skarner: "Ixtal",
+      Smolder: "Runeterra",
+      Sona: "Demacia",
+      Soraka: "Targon",
+      Swain: "Noxus",
+      Sylas: "Demacia",
+      Syndra: "Ionia",
+      TahmKench: "Bilgewater",
+      Taliyah: "Shurima",
+      Talon: "Noxus",
+      Taric: "Targon",
+      Teemo: "BandleCity",
+      Thresh: "ShadowIsles",
+      Tristana: "BandleCity",
+      Trundle: "Freljord",
+      Tryndamere: "Freljord",
+      TwistedFate: "Bilgewater",
+      Twitch: "Zaun",
+      Udyr: "Freljord",
+      Urgot: "Zaun",
+      Varus: "Ionia",
+      Vayne: "Demacia",
+      Veigar: "BandleCity",
+      Velkoz: "Void",
+      Vex: "ShadowIsles",
+      Vi: "Piltover",
+      Viego: "ShadowIsles",
+      Viktor: "Zaun",
+      Vladimir: "Noxus",
+      Volibear: "Freljord",
+      Warwick: "Zaun",
+      MonkeyKing: "Ionia",
+      Wukong: "Ionia",
+      Xayah: "Ionia",
+      Xerath: "Shurima",
+      XinZhao: "Demacia",
+      Yasuo: "Ionia",
+      Yone: "Ionia",
+      Yorick: "ShadowIsles",
+      Yuumi: "BandleCity",
+      Zac: "Zaun",
+      Zed: "Ionia",
+      Zeri: "Zaun",
+      Ziggs: "Zaun",
+      Zilean: "Runeterra",
+      Zoe: "Targon",
+      Zyra: "Ixtal",
+      Yunara: "Ionia",
+      Zaahen: "Runeterra"
+    };
+
+    const WORLD_TOPICS = [
+      {
+        title: "官方宇宙档案",
+        body: "League Universe 是 Riot 对英雄传记、地区故事、短篇、漫画、艺术资料和多媒体设定的官方归档。",
+        links: [
+          ["进入国服宇宙", "https://yz.lol.qq.com/zh_CN/"],
+          ["英雄索引", "https://yz.lol.qq.com/zh_CN/champions/"]
+        ]
+      },
+      {
+        title: "Runeterra 地图",
+        body: "官方交互地图把地区、地标与故事放在空间关系中呈现，适合补足传记之外的地理和世界观线索。",
+        links: [["打开地图", "https://yz.lol.qq.com/zh_CN/map/index.html"]]
+      },
+      {
+        title: "符文、战争与古代史",
+        body: "符文之地的现代格局与远古魔法、符文战争、飞升者、暗裔和各地历史遗产密切相关。",
+        links: [["从官方宇宙阅读", "https://yz.lol.qq.com/zh_CN/"]]
+      },
+      {
+        title: "虚空与现实边界",
+        body: "虚空相关角色与艾卡西亚、恕瑞玛及多个区域的危机相连，页面中的虚空英雄会回到官方传记继续阅读。",
+        links: [["虚空地区", "https://yz.lol.qq.com/zh_CN/region/the-void/"]]
+      },
+      {
+        title: "破败、黑雾与暗影岛",
+        body: "破败之咒、福光岛旧史、亡灵角色和黑雾事件构成暗影岛叙事核心。",
+        links: [["暗影岛", "https://yz.lol.qq.com/zh_CN/region/shadow-isles/"]]
+      },
+      {
+        title: "科技、炼金与双城",
+        body: "皮尔特沃夫与祖安共同承载海克斯科技、炼金科技、阶层冲突与城市英雄故事。",
+        links: [
+          ["皮尔特沃夫", "https://yz.lol.qq.com/zh_CN/region/piltover/"],
+          ["祖安", "https://yz.lol.qq.com/zh_CN/region/zaun/"]
+        ]
+      }
+    ];
+
+    const state = {
+      version: DEFAULT_VERSION,
+      champions: [],
+      details: new Map(),
+      selectedId: "",
+      query: "",
+      region: "",
+      role: "",
+      sort: "name"
+    };
+
+    const els = {
+      versionMetric: document.querySelector("#versionMetric"),
+      countMetric: document.querySelector("#countMetric"),
+      loadNotice: document.querySelector("#loadNotice"),
+      searchInput: document.querySelector("#searchInput"),
+      regionSelect: document.querySelector("#regionSelect"),
+      sortSelect: document.querySelector("#sortSelect"),
+      roleChips: document.querySelector("#roleChips"),
+      championGrid: document.querySelector("#championGrid"),
+      championDetail: document.querySelector("#championDetail"),
+      regionsGrid: document.querySelector("#regionsGrid"),
+      worldGrid: document.querySelector("#worldGrid"),
+      hero: document.querySelector(".hero")
+    };
+
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function stripDDragonHTML(value) {
+      const template = document.createElement("template");
+      template.innerHTML = String(value ?? "")
+        .replace(/<br\s*\/?>/gi, "\n")
+        .replace(/<\/li>/gi, "\n");
+      return template.content.textContent.replace(/\s+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
+    }
+
+    function splashUrl(id, skin = 0) {
+      return `${DDRAGON}/cdn/img/champion/splash/${id}_${skin}.jpg`;
+    }
+
+    function squareUrl(champion) {
+      return `${DDRAGON}/cdn/${state.version}/img/champion/${champion.image.full}`;
+    }
+
+    function passiveIconUrl(passive) {
+      return `${DDRAGON}/cdn/${state.version}/img/passive/${passive.image.full}`;
+    }
+
+    function spellIconUrl(spell) {
+      return `${DDRAGON}/cdn/${state.version}/img/spell/${spell.image.full}`;
+    }
+
+    function regionOf(champion) {
+      return REGION_BY_ID[champion.id] || REGION_BY_ID[champion.name] || "Runeterra";
+    }
+
+    function regionLabel(regionId) {
+      return REGION_LABEL_BY_ID[regionId] || "符文之地";
+    }
+
+    function roleLabels(tags = []) {
+      return tags.map((tag) => ROLE_LABELS[tag] || tag).join(" / ");
+    }
+
+    function normalize(value) {
+      return String(value ?? "").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function championSlug(champion) {
+      const overrides = {
+        MonkeyKing: "wukong",
+        Nunu: "nunu",
+        RenataGlasc: "renata-glasc"
+      };
+      if (overrides[champion.id]) return overrides[champion.id];
+      return normalize(champion.name)
+        .replace(/&/g, "and")
+        .replace(/[.'’]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "");
+    }
+
+    function leagueChampionUrl(champion) {
+      return `https://lol.qq.com/data/info-defail.shtml?id=${champion.key}`;
+    }
+
+    function abilityVideoUrls(champion, abilityKey) {
+      const numericId = String(champion.key).padStart(4, "0");
+      const suffix = abilityKey === "P" ? "P1" : `${abilityKey}1`;
+      const base = `https://d28xe8vt774jo5.cloudfront.net/champion-abilities/${numericId}/ability_${numericId}_${suffix}`;
+      return {
+        webm: `${base}.webm`,
+        mp4: `${base}.mp4`
+      };
+    }
+
+    async function fetchJson(url) {
+      const response = await fetch(url, { cache: "force-cache" });
+      if (!response.ok) throw new Error(`${response.status} ${url}`);
+      return response.json();
+    }
+
+    async function resolveVersion() {
+      try {
+        const versions = await fetchJson(`${DDRAGON}/api/versions.json`);
+        return versions[0] || DEFAULT_VERSION;
+      } catch (error) {
+        console.warn("Using fallback Data Dragon version", error);
+        return DEFAULT_VERSION;
+      }
+    }
+
+    async function loadChampions() {
+      state.version = await resolveVersion();
+      els.versionMetric.textContent = state.version;
+
+      try {
+        const data = await fetchJson(`${DDRAGON}/cdn/${state.version}/data/${LOCALE}/champion.json`);
+        state.champions = Object.values(data.data).map((champion) => ({
+          ...champion,
+          region: regionOf(champion)
+        }));
+        state.champions.sort((a, b) => a.name.localeCompare(b.name, "zh-Hans-CN"));
+        els.countMetric.textContent = `${state.champions.length} 位`;
+        els.loadNotice.textContent = `已连接 Riot Data Dragon ${state.version}。英雄资料、技能文本、图标和原画会从官方 CDN 加载；长篇宇宙内容请通过官方链接继续阅读。`;
+        renderRegionOptions();
+        renderRoleChips();
+        renderChampionGrid();
+        const defaultChampion = state.champions.find((champion) => champion.id === "AurelionSol") || state.champions[0];
+        if (defaultChampion) selectChampion(defaultChampion.id);
+      } catch (error) {
+        console.error(error);
+        els.countMetric.textContent = "未连接";
+        els.loadNotice.textContent = "无法连接 Riot 官方 Data Dragon。请检查网络或 CDN 访问权限；页面不会使用第三方或自写资料替代官方数据。";
+        els.championGrid.innerHTML = `<div class="empty">没有拿到官方英雄列表。联网后刷新页面即可加载全部英雄。</div>`;
+        els.championDetail.innerHTML = `<div class="empty">等待 Riot 官方数据源。</div>`;
+      }
+    }
+
+    async function loadChampionDetail(id) {
+      if (state.details.has(id)) return state.details.get(id);
+      const data = await fetchJson(`${DDRAGON}/cdn/${state.version}/data/${LOCALE}/champion/${id}.json`);
+      const detail = data.data[id];
+      detail.region = regionOf(detail);
+      state.details.set(id, detail);
+      return detail;
+    }
+
+    function renderRegionOptions() {
+      const counts = state.champions.reduce((total, champion) => {
+        total[champion.region] = (total[champion.region] || 0) + 1;
+        return total;
+      }, {});
+      const options = REGIONS
+        .map((region) => {
+          const count = counts[region.id] || 0;
+          const suffix = count ? `（${count}）` : "（世界观）";
+          return `<option value="${region.id}">${region.label}${suffix}</option>`;
+        })
+        .join("");
+      els.regionSelect.innerHTML = `<option value="">全部地区</option>${options}`;
+    }
+
+    function renderRoleChips() {
+      const roles = Object.keys(ROLE_LABELS);
+      els.roleChips.innerHTML = [
+        `<button class="chip ${state.role ? "" : "is-active"}" type="button" data-role="">全部定位</button>`,
+        ...roles.map((role) => `<button class="chip ${state.role === role ? "is-active" : ""}" type="button" data-role="${role}">${ROLE_LABELS[role]}</button>`)
+      ].join("");
+    }
+
+    function championMatches(champion) {
+      if (state.region && champion.region !== state.region) return false;
+      if (state.role && !champion.tags.includes(state.role)) return false;
+      if (!state.query) return true;
+      const haystack = normalize([
+        champion.name,
+        champion.title,
+        champion.id,
+        champion.blurb,
+        regionLabel(champion.region),
+        roleLabels(champion.tags)
+      ].join(" "));
+      return haystack.includes(normalize(state.query));
+    }
+
+    function sortChampions(champions) {
+      return [...champions].sort((a, b) => {
+        if (state.sort === "region") {
+          return regionLabel(a.region).localeCompare(regionLabel(b.region), "zh-Hans-CN") || a.name.localeCompare(b.name, "zh-Hans-CN");
+        }
+        if (state.sort === "role") {
+          return roleLabels(a.tags).localeCompare(roleLabels(b.tags), "zh-Hans-CN") || a.name.localeCompare(b.name, "zh-Hans-CN");
+        }
+        return a.name.localeCompare(b.name, "zh-Hans-CN");
+      });
+    }
+
+    function renderChampionGrid() {
+      const visible = sortChampions(state.champions.filter(championMatches));
+      if (!visible.length) {
+        els.championGrid.innerHTML = `<div class="empty">没有符合条件的英雄。</div>`;
+        return;
+      }
+
+      els.championGrid.innerHTML = visible.map((champion) => `
+        <button class="champion-card ${state.selectedId === champion.id ? "is-active" : ""}" type="button" data-id="${champion.id}" aria-label="查看 ${escapeHTML(champion.name)}">
+          <img src="${squareUrl(champion)}" alt="${escapeHTML(champion.name)} 头像" loading="lazy">
+          <span class="champion-card-body">
+            <strong>${escapeHTML(champion.name)}</strong>
+            <span>${escapeHTML(regionLabel(champion.region))} · ${escapeHTML(roleLabels(champion.tags))}</span>
+          </span>
+        </button>
+      `).join("");
+    }
+
+    function renderDetailLoading(champion) {
+      state.selectedId = champion.id;
+      els.hero.style.setProperty("--hero-image", `url('${splashUrl(champion.id)}')`);
+      renderChampionGrid();
+      els.championDetail.innerHTML = `
+        <div class="detail-hero" style="--detail-image: url('${splashUrl(champion.id)}')">
+          <div class="detail-hero-content">
+            <div class="eyebrow">${escapeHTML(regionLabel(champion.region))}</div>
+            <h2>${escapeHTML(champion.name)}</h2>
+            <p class="detail-subtitle">${escapeHTML(champion.title)}</p>
+          </div>
+        </div>
+        <div class="detail-body">
+          <div class="skeleton" style="width: 70%; height: 22px;"></div>
+          <div class="skeleton" style="width: 92%;"></div>
+          <div class="skeleton" style="width: 82%;"></div>
+        </div>
+      `;
+    }
+
+    async function selectChampion(id) {
+      const summary = state.champions.find((champion) => champion.id === id);
+      if (!summary) return;
+      renderDetailLoading(summary);
+      try {
+        const detail = await loadChampionDetail(id);
+        renderChampionDetail(detail);
+      } catch (error) {
+        console.error(error);
+        els.championDetail.innerHTML = `
+          <div class="empty">
+            无法加载 ${escapeHTML(summary.name)} 的官方详情。请稍后刷新，或打开官方英雄页继续查看。
+            <div class="link-row">
+              <a class="source-link" href="${leagueChampionUrl(summary)}" target="_blank" rel="noreferrer">官方英雄页</a>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function renderChampionDetail(champion) {
+      const abilities = [
+        {
+          key: "P",
+          name: champion.passive.name,
+          description: champion.passive.description,
+          icon: passiveIconUrl(champion.passive),
+          facts: ["被动技能"]
+        },
+        ...champion.spells.map((spell, index) => ({
+          key: ["Q", "W", "E", "R"][index],
+          name: spell.name,
+          description: spell.description || spell.tooltip,
+          icon: spellIconUrl(spell),
+          facts: [
+            spell.cooldownBurn ? `冷却：${spell.cooldownBurn}` : "",
+            spell.costBurn ? `消耗：${spell.costBurn}` : "",
+            spell.rangeBurn ? `范围：${spell.rangeBurn}` : ""
+          ].filter(Boolean)
+        }))
+      ];
+
+      const detailUrl = leagueChampionUrl(champion);
+      const universeUrl = "https://yz.lol.qq.com/zh_CN/champions/";
+      els.hero.style.setProperty("--hero-image", `url('${splashUrl(champion.id)}')`);
+      els.championDetail.innerHTML = `
+        <div class="detail-hero" style="--detail-image: url('${splashUrl(champion.id)}')">
+          <div class="detail-hero-content">
+            <div class="eyebrow">${escapeHTML(regionLabel(champion.region))}</div>
+            <h2>${escapeHTML(champion.name)}</h2>
+            <p class="detail-subtitle">${escapeHTML(champion.title)}</p>
+            <p class="tagline">${escapeHTML(champion.blurb)}</p>
+            <div class="meta-strip">
+              <span class="meta-pill">${escapeHTML(roleLabels(champion.tags))}</span>
+              <span class="meta-pill">官方 ID：${escapeHTML(champion.id)}</span>
+              <span class="meta-pill">数字 ID：${escapeHTML(champion.key)}</span>
+            </div>
+          </div>
+        </div>
+        <div class="detail-body">
+          <section class="text-block">
+            <h3>背景故事</h3>
+            <p>${escapeHTML(champion.lore || champion.blurb)}</p>
+            <div class="link-row">
+              <a class="source-link" href="${detailUrl}" target="_blank" rel="noreferrer">官方英雄页</a>
+              <a class="source-link" href="${universeUrl}" target="_blank" rel="noreferrer">Universe 英雄索引</a>
+            </div>
+          </section>
+          <section class="abilities">
+            <h3>技能与官方演示</h3>
+            <div class="abilities-list">
+              ${abilities.map((ability) => renderAbility(champion, ability, detailUrl)).join("")}
+            </div>
+          </section>
+        </div>
+      `;
+      attachVideoFallbacks();
+    }
+
+    function renderAbility(champion, ability, detailUrl) {
+      const video = abilityVideoUrls(champion, ability.key);
+      const facts = ability.facts.length
+        ? `<div class="ability-facts">${ability.facts.map((fact) => `<span class="meta-pill">${escapeHTML(fact)}</span>`).join("")}</div>`
+        : "";
+
+      return `
+        <article class="ability">
+          <div class="ability-copy">
+            <img class="ability-icon" src="${ability.icon}" alt="${escapeHTML(ability.name)} 图标" loading="lazy">
+            <div>
+              <div class="ability-name">
+                <span class="ability-key">${ability.key}</span>
+                <strong>${escapeHTML(ability.name)}</strong>
+              </div>
+              <p class="ability-desc">${escapeHTML(stripDDragonHTML(ability.description))}</p>
+              ${facts}
+            </div>
+          </div>
+          <div class="ability-video">
+            <video controls muted loop playsinline preload="metadata" poster="${splashUrl(champion.id)}" data-video="${ability.key}">
+              <source src="${video.webm}" type="video/webm">
+              <source src="${video.mp4}" type="video/mp4">
+            </video>
+            <div class="video-fallback" hidden>
+              当前浏览器未能加载该技能的官方演示视频。可能是该英雄资源尚未公开、资源命名变更，或网络拦截；可打开官方英雄页核对。
+              <div class="link-row">
+                <a class="source-link" href="${detailUrl}" target="_blank" rel="noreferrer">打开官方英雄页</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function attachVideoFallbacks() {
+      document.querySelectorAll("video[data-video]").forEach((video) => {
+        const fallback = video.parentElement.querySelector(".video-fallback");
+        const showFallback = () => {
+          if (video.readyState < 2) fallback.hidden = false;
+        };
+        video.addEventListener("loadeddata", () => {
+          fallback.hidden = true;
+        }, { once: true });
+        video.addEventListener("error", showFallback);
+        video.querySelectorAll("source").forEach((source) => source.addEventListener("error", showFallback));
+        window.setTimeout(showFallback, 7000);
+      });
+    }
+
+    function renderRegions() {
+      els.regionsGrid.innerHTML = REGIONS.map((region) => `
+        <article class="region-card">
+          <img src="${splashUrl(region.rep)}" alt="${escapeHTML(region.label)} 代表英雄官方原画" loading="lazy">
+          <div class="region-card-body">
+            <h3>${escapeHTML(region.label)}</h3>
+            <p>${escapeHTML(region.summary)}</p>
+            <div class="link-row">
+              <a class="source-link" href="${region.url}" target="_blank" rel="noreferrer">官方资料</a>
+              <button class="ghost-button" type="button" data-region-jump="${region.id}">筛选英雄</button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderWorldTopics() {
+      els.worldGrid.innerHTML = WORLD_TOPICS.map((topic) => `
+        <article class="world-card">
+          <h3>${escapeHTML(topic.title)}</h3>
+          <p>${escapeHTML(topic.body)}</p>
+          <div class="link-row">
+            ${topic.links.map(([label, url]) => `<a class="source-link" href="${url}" target="_blank" rel="noreferrer">${escapeHTML(label)}</a>`).join("")}
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function wireEvents() {
+      els.searchInput.addEventListener("input", (event) => {
+        state.query = event.target.value.trim();
+        renderChampionGrid();
+      });
+      els.regionSelect.addEventListener("change", (event) => {
+        state.region = event.target.value;
+        renderChampionGrid();
+      });
+      els.sortSelect.addEventListener("change", (event) => {
+        state.sort = event.target.value;
+        renderChampionGrid();
+      });
+      els.roleChips.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-role]");
+        if (!button) return;
+        state.role = button.dataset.role;
+        renderRoleChips();
+        renderChampionGrid();
+      });
+      els.championGrid.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-id]");
+        if (!button) return;
+        selectChampion(button.dataset.id);
+      });
+      els.regionsGrid.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-region-jump]");
+        if (!button) return;
+        state.region = button.dataset.regionJump;
+        els.regionSelect.value = state.region;
+        renderChampionGrid();
+        document.querySelector("#champions").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+
+    renderRegions();
+    renderWorldTopics();
+    wireEvents();
+    loadChampions();
+  </script>
+</body>
+</html>
