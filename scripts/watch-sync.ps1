@@ -14,6 +14,7 @@ $watcher.NotifyFilter = [System.IO.NotifyFilters]'LastWrite, FileName, Size'
 $watcher.EnableRaisingEvents = $true
 
 $lastRun = Get-Date "2000-01-01"
+$syncScript = Join-Path $Root "scripts\sync.ps1"
 $action = {
   $now = Get-Date
   if (($now - $script:lastRun).TotalSeconds -lt 4) {
@@ -22,15 +23,15 @@ $action = {
   $script:lastRun = $now
   Start-Sleep -Seconds 2
   try {
-    & "$using:Root\scripts\sync.ps1"
+    & $Event.MessageData
   } catch {
     Write-Host "Sync failed: $($_.Exception.Message)"
   }
 }
 
-Register-ObjectEvent $watcher Changed -Action $action | Out-Null
-Register-ObjectEvent $watcher Created -Action $action | Out-Null
-Register-ObjectEvent $watcher Renamed -Action $action | Out-Null
+Register-ObjectEvent $watcher Changed -MessageData $syncScript -Action $action | Out-Null
+Register-ObjectEvent $watcher Created -MessageData $syncScript -Action $action | Out-Null
+Register-ObjectEvent $watcher Renamed -MessageData $syncScript -Action $action | Out-Null
 
 Write-Host "Watching index.html. Keep this window open; press Ctrl+C to stop."
 while ($true) {
