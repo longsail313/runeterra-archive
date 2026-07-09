@@ -968,8 +968,165 @@
 
     .source-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 12px;
+    }
+
+    .system-controls {
+      display: grid;
+      grid-template-columns: minmax(240px, 1fr) minmax(150px, 220px) minmax(150px, 220px);
+      gap: 10px;
+      margin: 22px 0;
+      align-items: center;
+    }
+
+    .system-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 18px;
+    }
+
+    .system-summary {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .system-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 12px;
+    }
+
+    .system-card {
+      min-height: 220px;
+      display: grid;
+      grid-template-rows: 118px 1fr;
+      border: 1px solid rgba(200, 170, 110, .2);
+      border-radius: var(--radius);
+      background: rgba(6, 12, 17, .74);
+      overflow: hidden;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .18);
+    }
+
+    html[data-theme="light"] .system-card {
+      border-color: rgba(154, 115, 45, .22);
+      background: rgba(255, 250, 240, .86);
+      box-shadow: var(--shadow);
+    }
+
+    .system-visual {
+      position: relative;
+      min-height: 118px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(200, 170, 110, .14), rgba(10, 200, 185, .08)),
+        #071019;
+    }
+
+    html[data-theme="light"] .system-visual {
+      background:
+        linear-gradient(135deg, rgba(154, 115, 45, .14), rgba(0, 127, 132, .08)),
+        #f4ead8;
+    }
+
+    .system-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.05) contrast(1.02);
+    }
+
+    .system-visual.icon img {
+      width: 76px;
+      height: 76px;
+      border: 1px solid var(--gold);
+      border-radius: 6px;
+      object-fit: cover;
+      background: #03070a;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, .24);
+    }
+
+    .system-symbol {
+      width: 78px;
+      height: 78px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      color: var(--gold-strong);
+      background: rgba(4, 10, 15, .72);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 34px;
+      font-weight: 700;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, .24);
+    }
+
+    html[data-theme="light"] .system-symbol {
+      background: rgba(255, 252, 244, .78);
+    }
+
+    .system-card-body {
+      padding: 14px;
+      min-width: 0;
+    }
+
+    .system-card-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .system-card h3 {
+      color: var(--gold-strong);
+      font-size: 20px;
+      line-height: 1.2;
+      overflow-wrap: anywhere;
+    }
+
+    .system-type {
+      flex: 0 0 auto;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .system-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .system-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .system-tag {
+      min-height: 26px;
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 8px;
+      border: 1px solid rgba(200, 170, 110, .24);
+      border-radius: 6px;
+      color: var(--muted);
+      background: rgba(4, 10, 15, .5);
+      font-size: 12px;
+    }
+
+    html[data-theme="light"] .system-tag {
+      border-color: rgba(154, 115, 45, .22);
+      background: rgba(255, 248, 232, .8);
     }
 
     .notice {
@@ -1046,6 +1203,7 @@
       .topbar-inner,
       .section-heading,
       .filters,
+      .system-controls,
       .source-grid,
       .status-board {
         grid-template-columns: 1fr;
@@ -1058,10 +1216,20 @@
 
       .nav {
         gap: 6px;
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 2px;
+        scrollbar-width: none;
+      }
+
+      .nav::-webkit-scrollbar {
+        display: none;
       }
 
       .nav a,
       .theme-toggle {
+        flex: 0 0 auto;
         min-height: 34px;
         padding: 7px 10px;
       }
@@ -1126,6 +1294,7 @@
       </div>
       <nav class="nav" aria-label="页面导航">
         <a href="#champions">英雄</a>
+        <a href="#systems">系统</a>
         <a href="#regions">阵营</a>
         <a href="#world">世界观</a>
         <a href="#sources">来源</a>
@@ -1225,7 +1394,52 @@
       </div>
     </section>
 
-    <section class="band alt" id="regions">
+    <section class="band alt" id="systems">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <h2>游戏系统资料库</h2>
+            <p>整理召唤师峡谷的核心机制、地图目标、防御建筑、中立野怪、元素巨龙、龙魂、召唤师技能与装备。装备和召唤师技能会从 Riot Data Dragon 自动加载，机制卡片保持官方资料优先和可检索。</p>
+          </div>
+          <div class="source-row">
+            <a class="source-link" href="https://ddragon.leagueoflegends.com/api/versions.json" target="_blank" rel="noreferrer">Data Dragon</a>
+            <a class="source-link" href="https://lol.qq.com/data/info-heros.shtml" target="_blank" rel="noreferrer">国服资料站</a>
+          </div>
+        </div>
+
+        <div class="notice" id="systemsNotice">
+          正在准备游戏系统资料。装备、召唤师技能和图标会优先读取官方 Data Dragon；野怪、防御塔、龙魂等机制会使用官方地图/图标资源搭配说明。
+        </div>
+
+        <div class="system-controls" role="search">
+          <div class="field">
+            <label for="systemSearchInput">搜索机制、装备、野怪、龙魂</label>
+            <input id="systemSearchInput" type="search" placeholder="例如：男爵、龙魂、防御塔、鞋子、视野">
+          </div>
+          <div class="field">
+            <label for="systemCategorySelect">分类</label>
+            <select id="systemCategorySelect">
+              <option value="">全部分类</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="systemSourceSelect">资料类型</label>
+            <select id="systemSourceSelect">
+              <option value="">全部类型</option>
+              <option value="mechanic">机制卡片</option>
+              <option value="item">装备</option>
+              <option value="summoner">召唤师技能</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="system-chips" id="systemChips" aria-label="系统分类筛选"></div>
+        <p class="system-summary" id="systemSummary">等待官方数据加载。</p>
+        <div class="system-grid" id="systemsGrid"></div>
+      </div>
+    </section>
+
+    <section class="band" id="regions">
       <div class="shell">
         <div class="section-heading">
           <div>
@@ -1241,7 +1455,7 @@
       </div>
     </section>
 
-    <section class="band" id="world">
+    <section class="band alt" id="world">
       <div class="shell">
         <div class="section-heading">
           <div>
@@ -1253,7 +1467,7 @@
       </div>
     </section>
 
-    <section class="band alt" id="sources">
+    <section class="band" id="sources">
       <div class="shell">
         <div class="section-heading">
           <div>
@@ -1283,6 +1497,13 @@
             <div class="link-row">
               <a class="source-link" href="https://yz.lol.qq.com/zh_CN/" target="_blank" rel="noreferrer">国服官方宇宙</a>
               <a class="source-link" href="https://yz.lol.qq.com/zh_CN/map/index.html" target="_blank" rel="noreferrer">符文之地地图</a>
+            </div>
+          </div>
+          <div class="source-card">
+            <h3>游戏系统</h3>
+            <p>装备与召唤师技能由 Data Dragon 当前版本自动读取。野怪、防御塔、龙魂等机制卡片用于归类和检索，具体数值以当前客户端和官方版本更新为准。</p>
+            <div class="link-row">
+              <a class="source-link" href="#systems">游戏系统资料库</a>
             </div>
           </div>
         </div>
@@ -1644,6 +1865,277 @@
       }
     ];
 
+    const SYSTEM_CATEGORIES = [
+      ["map", "地图与胜利"],
+      ["structure", "防御建筑"],
+      ["lane", "兵线与发育"],
+      ["jungle", "野区与野怪"],
+      ["epic", "史诗野怪"],
+      ["dragon", "元素巨龙与龙魂"],
+      ["vision", "视野与信息"],
+      ["economy", "经济与成长"],
+      ["summoner", "召唤师技能"],
+      ["item", "装备"]
+    ];
+
+    const SYSTEM_CATEGORY_LABELS = Object.fromEntries(SYSTEM_CATEGORIES);
+
+    const SYSTEM_SOURCE_LABELS = {
+      mechanic: "机制卡片",
+      item: "装备",
+      summoner: "召唤师技能"
+    };
+
+    const ITEM_TAG_LABELS = {
+      Active: "主动",
+      Armor: "护甲",
+      ArmorPenetration: "护甲穿透",
+      AttackSpeed: "攻速",
+      Aura: "光环",
+      Boots: "鞋子",
+      Consumable: "消耗品",
+      CooldownReduction: "技能急速",
+      CriticalStrike: "暴击",
+      Damage: "攻击力",
+      GoldPer: "工资装",
+      Health: "生命",
+      HealthRegen: "生命回复",
+      Jungle: "打野",
+      Lane: "线上",
+      LifeSteal: "生命偷取",
+      MagicPenetration: "法术穿透",
+      Mana: "法力",
+      ManaRegen: "法力回复",
+      NonbootsMovement: "移速",
+      OnHit: "命中特效",
+      Slow: "减速",
+      SpellBlock: "魔抗",
+      SpellDamage: "法术强度",
+      Stealth: "隐身/侦测",
+      Tenacity: "韧性",
+      Trinket: "饰品",
+      Vision: "视野"
+    };
+
+    const STATIC_GAME_SYSTEMS = [
+      {
+        type: "mechanic",
+        category: "map",
+        name: "召唤师峡谷",
+        summary: "经典 5v5 地图，由三条兵线、双方野区、龙坑、男爵坑和基地组成。核心胜利条件是推进兵线、摧毁防御建筑，并最终摧毁敌方水晶枢纽。",
+        tags: ["5v5", "地图", "推塔"],
+        image: "map"
+      },
+      {
+        type: "mechanic",
+        category: "map",
+        name: "水晶枢纽",
+        summary: "每个基地的最终核心目标。队伍必须先突破兵线与防御建筑，才能威胁敌方水晶枢纽；摧毁敌方水晶枢纽即可赢得对局。",
+        tags: ["基地", "胜利条件", "核心目标"],
+        symbol: "N"
+      },
+      {
+        type: "mechanic",
+        category: "structure",
+        name: "防御塔",
+        summary: "防御塔保护兵线、野区入口和基地，是推进节奏的关键节点。越塔、拆塔、换塔和利用兵线承伤，都是召唤师峡谷的核心决策。",
+        tags: ["外塔", "内塔", "高地塔", "门牙塔"],
+        symbol: "T"
+      },
+      {
+        type: "mechanic",
+        category: "structure",
+        name: "防御塔镀层",
+        summary: "对局前期防御塔拥有镀层奖励。围绕镀层形成的推线、支援、先锋和换线决策，会直接影响前期经济差。",
+        tags: ["前期经济", "推线", "版本数值以客户端为准"],
+        symbol: "P"
+      },
+      {
+        type: "mechanic",
+        category: "structure",
+        name: "召唤水晶",
+        summary: "高地建筑被摧毁后，敌方对应兵线会出现更强的超级兵压力。召唤水晶会在一段时间后重生，因此破高地后的推进窗口很重要。",
+        tags: ["高地", "超级兵", "兵线压力"],
+        symbol: "I"
+      },
+      {
+        type: "mechanic",
+        category: "lane",
+        name: "小兵与兵线",
+        summary: "小兵提供金币、经验和推塔承伤。控线、推线、慢推、回推和卡线会影响换血、游走、回城与争夺地图目标的时机。",
+        tags: ["近战兵", "远程兵", "炮车兵", "超级兵"],
+        symbol: "M"
+      },
+      {
+        type: "mechanic",
+        category: "lane",
+        name: "回城与补给",
+        summary: "回城让英雄返回泉水购买装备和恢复状态。好的回城时间通常建立在兵线处理、视野安全和目标刷新节奏之上。",
+        tags: ["回城", "泉水", "补给"],
+        symbol: "B"
+      },
+      {
+        type: "mechanic",
+        category: "economy",
+        name: "金币、经验与等级",
+        summary: "英雄通过补刀、击杀、助攻、防御塔、野怪和地图目标获得资源。装备强度与等级成长共同决定中后期作战能力。",
+        tags: ["金币", "经验", "等级"],
+        symbol: "G"
+      },
+      {
+        type: "mechanic",
+        category: "economy",
+        name: "赏金与终结",
+        summary: "连续领先的英雄或队伍可能产生额外赏金。落后方通过终结、换资源和争夺关键目标，有机会缩小经济差。",
+        tags: ["英雄赏金", "目标赏金", "翻盘"],
+        symbol: "$"
+      },
+      {
+        type: "mechanic",
+        category: "vision",
+        name: "战争迷雾",
+        summary: "地图上未被己方单位、守卫或技能揭示的位置会被战争迷雾覆盖。视野信息决定埋伏、绕后、开团和争夺龙男爵的安全性。",
+        tags: ["视野", "信息", "地图控制"],
+        symbol: "?"
+      },
+      {
+        type: "mechanic",
+        category: "vision",
+        name: "守卫与饰品",
+        summary: "侦查守卫、控制守卫和饰品是视野体系的基础。进攻眼位、河道眼位、野区入口眼位和排眼，会改变目标争夺的风险。",
+        tags: ["侦查守卫", "控制守卫", "饰品"],
+        symbol: "W"
+      },
+      {
+        type: "mechanic",
+        category: "jungle",
+        name: "基础野怪营地",
+        summary: "野区营地为打野和队伍提供经验、金币与节奏。常见营地包括锋喙鸟、暗影狼、魔沼蛙、石甲虫等，路线规划会影响抓人和目标控制。",
+        tags: ["野区", "刷野", "路线"],
+        image: "map"
+      },
+      {
+        type: "mechanic",
+        category: "jungle",
+        name: "苍蓝雕纹魔像",
+        summary: "蓝色增益相关营地通常围绕法力、技能循环和野区控制展开。中单、打野与队伍节奏经常会围绕蓝区资源分配做决策。",
+        tags: ["蓝 Buff", "野区资源", "技能循环"],
+        symbol: "B"
+      },
+      {
+        type: "mechanic",
+        category: "jungle",
+        name: "绯红印记树怪",
+        summary: "红色增益相关营地通常强化普攻追击、留人和前期对抗。红区控制也常与下路、上路抓人路线绑定。",
+        tags: ["红 Buff", "追击", "对抗"],
+        symbol: "R"
+      },
+      {
+        type: "mechanic",
+        category: "jungle",
+        name: "峡谷迅捷蟹",
+        summary: "河道目标会提供河道视野与节奏价值。中野联动、线权和河道站位，常决定迅捷蟹争夺是否安全。",
+        tags: ["河道", "线权", "视野"],
+        symbol: "S"
+      },
+      {
+        type: "mechanic",
+        category: "epic",
+        name: "虚空巢虫",
+        summary: "男爵坑前期史诗目标之一，偏向为队伍提供推塔和持续推进价值。它让上半区前期争夺更有意义。",
+        tags: ["上半区", "史诗野怪", "推塔"],
+        symbol: "V"
+      },
+      {
+        type: "mechanic",
+        category: "epic",
+        name: "峡谷先锋",
+        summary: "中期出现在男爵坑的史诗目标，击败后可围绕先锋进行推进、撞塔和打开边路缺口。",
+        tags: ["先锋", "撞塔", "中期节奏"],
+        symbol: "H"
+      },
+      {
+        type: "mechanic",
+        category: "epic",
+        name: "纳什男爵",
+        summary: "后期最重要的史诗野怪之一。男爵增益通常用于强化推进、分带汇合和结束比赛，但争夺前需要视野与兵线准备。",
+        tags: ["男爵", "推进", "后期目标"],
+        symbol: "B"
+      },
+      {
+        type: "mechanic",
+        category: "dragon",
+        name: "元素亚龙",
+        summary: "龙坑中的主要史诗目标。击杀元素亚龙会为队伍提供可叠加的元素收益；具体数值会随版本变化，以当前客户端为准。",
+        tags: ["龙坑", "元素增益", "团队目标"],
+        symbol: "D"
+      },
+      {
+        type: "mechanic",
+        category: "dragon",
+        name: "龙魂",
+        summary: "当队伍取得足够元素亚龙层数后，会获得对应元素龙魂。龙魂通常是永久且强力的团队奖励，经常改变后续团战胜负。",
+        tags: ["永久奖励", "团队强化", "胜负转折"],
+        symbol: "Ω"
+      },
+      {
+        type: "mechanic",
+        category: "dragon",
+        name: "炼狱龙魂",
+        summary: "偏向提升爆发与进攻威胁的龙魂类型。适合检索火元素、伤害强化和团战爆发相关内容；具体数值以当前版本为准。",
+        tags: ["炼狱", "伤害", "龙魂"],
+        symbol: "火"
+      },
+      {
+        type: "mechanic",
+        category: "dragon",
+        name: "山脉龙魂",
+        summary: "偏向提升生存和抗压能力的龙魂类型。常与前排、护盾、抗性和阵地战关联；具体数值以当前版本为准。",
+        tags: ["山脉", "生存", "龙魂"],
+        symbol: "山"
+      },
+      {
+        type: "mechanic",
+        category: "dragon",
+        name: "海洋龙魂",
+        summary: "偏向回复和持续作战的龙魂类型。常与续航、拉扯和消耗战关联；具体数值以当前版本为准。",
+        tags: ["海洋", "回复", "龙魂"],
+        symbol: "海"
+      },
+      {
+        type: "mechanic",
+        category: "dragon",
+        name: "云端龙魂",
+        summary: "偏向机动性、拉扯或节奏转换的龙魂类型。适合检索移速、追击、撤退和技能节奏；具体数值以当前版本为准。",
+        tags: ["云端", "机动", "龙魂"],
+        symbol: "云"
+      },
+      {
+        type: "mechanic",
+        category: "dragon",
+        name: "海克斯龙魂",
+        summary: "偏向额外打击、连锁效果或科技感节奏的龙魂类型。常与团战触发和持续输出关联；具体数值以当前版本为准。",
+        tags: ["海克斯", "连锁", "龙魂"],
+        symbol: "电"
+      },
+      {
+        type: "mechanic",
+        category: "dragon",
+        name: "炼金龙魂",
+        summary: "偏向生存、韧性或低血量作战等炼金主题收益。此类效果经历过版本迭代，具体数值以当前客户端为准。",
+        tags: ["炼金", "韧性", "龙魂"],
+        symbol: "毒"
+      },
+      {
+        type: "mechanic",
+        category: "dragon",
+        name: "远古巨龙",
+        summary: "在龙魂阶段后出现的高价值史诗目标，通常提供极强的终结能力。远古龙争夺往往需要全队视野、兵线和召唤师技能准备。",
+        tags: ["远古龙", "终结", "后期目标"],
+        symbol: "E"
+      }
+    ];
+
     const THEME_KEY = "runeterra-theme";
 
     const state = {
@@ -1654,7 +2146,11 @@
       query: "",
       region: "",
       role: "",
-      sort: "name"
+      sort: "name",
+      systemEntries: [],
+      systemQuery: "",
+      systemCategory: "",
+      systemSource: ""
     };
 
     const els = {
@@ -1667,6 +2163,13 @@
       roleChips: document.querySelector("#roleChips"),
       championGrid: document.querySelector("#championGrid"),
       championDetail: document.querySelector("#championDetail"),
+      systemsNotice: document.querySelector("#systemsNotice"),
+      systemSearchInput: document.querySelector("#systemSearchInput"),
+      systemCategorySelect: document.querySelector("#systemCategorySelect"),
+      systemSourceSelect: document.querySelector("#systemSourceSelect"),
+      systemChips: document.querySelector("#systemChips"),
+      systemSummary: document.querySelector("#systemSummary"),
+      systemsGrid: document.querySelector("#systemsGrid"),
       regionsGrid: document.querySelector("#regionsGrid"),
       worldGrid: document.querySelector("#worldGrid"),
       themeToggle: document.querySelector("#themeToggle"),
@@ -1729,6 +2232,14 @@
 
     function spellIconUrl(spell) {
       return `${DDRAGON}/cdn/${state.version}/img/spell/${spell.image.full}`;
+    }
+
+    function itemIconUrl(item) {
+      return `${DDRAGON}/cdn/${state.version}/img/item/${item.image.full}`;
+    }
+
+    function mapImageUrl() {
+      return `${DDRAGON}/cdn/${state.version}/img/map/map11.png`;
     }
 
     function regionOf(champion) {
@@ -1794,6 +2305,7 @@
     async function loadChampions() {
       state.version = await resolveVersion();
       els.versionMetric.textContent = state.version;
+      loadGameSystems();
 
       try {
         const data = await fetchJson(`${DDRAGON}/cdn/${state.version}/data/${LOCALE}/champion.json`);
@@ -2044,6 +2556,191 @@
       });
     }
 
+    function systemCategoryLabel(category) {
+      return SYSTEM_CATEGORY_LABELS[category] || "游戏系统";
+    }
+
+    function systemSourceLabel(source) {
+      return SYSTEM_SOURCE_LABELS[source] || "资料";
+    }
+
+    function itemTagLabels(tags = []) {
+      return tags.map((tag) => ITEM_TAG_LABELS[tag] || tag);
+    }
+
+    function itemSubtype(tags = []) {
+      if (tags.includes("Consumable")) return "消耗品";
+      if (tags.includes("Trinket") || tags.includes("Vision")) return "视野装备";
+      if (tags.includes("Boots") || tags.includes("NonbootsMovement")) return "移动装备";
+      if (tags.includes("Jungle")) return "打野装备";
+      if (tags.includes("GoldPer")) return "辅助/工资装";
+      if (tags.includes("SpellDamage") || tags.includes("MagicPenetration")) return "法术装备";
+      if (tags.includes("Damage") || tags.includes("CriticalStrike") || tags.includes("AttackSpeed")) return "攻击装备";
+      if (tags.includes("Armor") || tags.includes("SpellBlock") || tags.includes("Health")) return "防御装备";
+      return "装备";
+    }
+
+    function createMechanicEntries() {
+      return STATIC_GAME_SYSTEMS.map((entry, index) => ({
+        id: `mechanic-${index}`,
+        source: "mechanic",
+        typeLabel: systemSourceLabel("mechanic"),
+        category: entry.category,
+        categoryLabel: systemCategoryLabel(entry.category),
+        name: entry.name,
+        summary: entry.summary,
+        tags: [systemCategoryLabel(entry.category), ...(entry.tags || [])],
+        image: entry.image === "map" ? mapImageUrl() : entry.image,
+        icon: "",
+        symbol: entry.symbol || "L"
+      }));
+    }
+
+    function createItemEntries(items) {
+      return Object.entries(items)
+        .filter(([, item]) => item?.image?.full && item?.maps?.["11"] && !item.hideFromAll && item.name)
+        .map(([id, item]) => {
+          const cleanName = stripDDragonHTML(item.name);
+          const tags = itemTagLabels(item.tags || []);
+          const subtype = itemSubtype(item.tags || []);
+          const price = Number.isFinite(item.gold?.total) && item.gold.total > 0 ? `${item.gold.total} 金币` : "无价格";
+          const summary = stripDDragonHTML(item.plaintext || item.description || "装备资料来自 Riot Data Dragon。");
+          return {
+            id: `item-${id}`,
+            source: "item",
+            typeLabel: subtype,
+            category: "item",
+            categoryLabel: systemCategoryLabel("item"),
+            name: cleanName || item.name,
+            summary: summary || "装备资料来自 Riot Data Dragon。",
+            tags: [price, subtype, ...tags].filter(Boolean).slice(0, 8),
+            icon: itemIconUrl(item),
+            image: "",
+            symbol: "I"
+          };
+        })
+        .sort((a, b) => a.name.localeCompare(b.name, "zh-Hans-CN"));
+    }
+
+    function createSummonerEntries(spells) {
+      return Object.values(spells)
+        .filter((spell) => spell?.image?.full && Array.isArray(spell.modes) && spell.modes.includes("CLASSIC"))
+        .map((spell) => ({
+          id: `summoner-${spell.id}`,
+          source: "summoner",
+          typeLabel: systemSourceLabel("summoner"),
+          category: "summoner",
+          categoryLabel: systemCategoryLabel("summoner"),
+          name: spell.name,
+          summary: stripDDragonHTML(spell.description || spell.tooltip || "召唤师技能资料来自 Riot Data Dragon。"),
+          tags: [
+            spell.cooldownBurn ? `冷却：${spell.cooldownBurn}` : "",
+            spell.summonerLevel ? `等级：${spell.summonerLevel}` : "",
+            "召唤师峡谷"
+          ].filter(Boolean),
+          icon: spellIconUrl(spell),
+          image: "",
+          symbol: "S"
+        }))
+        .sort((a, b) => a.name.localeCompare(b.name, "zh-Hans-CN"));
+    }
+
+    function renderSystemOptions() {
+      els.systemCategorySelect.innerHTML = [
+        `<option value="">全部分类</option>`,
+        ...SYSTEM_CATEGORIES.map(([id, label]) => `<option value="${id}">${label}</option>`)
+      ].join("");
+    }
+
+    function renderSystemChips() {
+      const counts = state.systemEntries.reduce((total, entry) => {
+        total[entry.category] = (total[entry.category] || 0) + 1;
+        return total;
+      }, {});
+      els.systemChips.innerHTML = [
+        `<button class="chip ${state.systemCategory ? "" : "is-active"}" type="button" data-system-category="">全部系统</button>`,
+        ...SYSTEM_CATEGORIES.map(([id, label]) => {
+          const count = counts[id] || 0;
+          return `<button class="chip ${state.systemCategory === id ? "is-active" : ""}" type="button" data-system-category="${id}">${label}${count ? ` ${count}` : ""}</button>`;
+        })
+      ].join("");
+    }
+
+    function systemMatches(entry) {
+      if (state.systemCategory && entry.category !== state.systemCategory) return false;
+      if (state.systemSource && entry.source !== state.systemSource) return false;
+      if (!state.systemQuery) return true;
+      const haystack = normalize([
+        entry.name,
+        entry.summary,
+        entry.typeLabel,
+        entry.categoryLabel,
+        entry.source,
+        ...(entry.tags || [])
+      ].join(" "));
+      return haystack.includes(normalize(state.systemQuery));
+    }
+
+    function renderSystems() {
+      const visible = state.systemEntries.filter(systemMatches);
+      const total = state.systemEntries.length;
+      els.systemSummary.textContent = `当前显示 ${visible.length} / ${total} 条资料。装备与召唤师技能来自当前 Data Dragon 版本；机制类条目的具体数值以客户端当前版本为准。`;
+      renderSystemChips();
+
+      if (!visible.length) {
+        els.systemsGrid.innerHTML = `<div class="empty">没有符合条件的系统资料。</div>`;
+        return;
+      }
+
+      els.systemsGrid.innerHTML = visible.map((entry) => {
+        const visual = entry.icon
+          ? `<div class="system-visual icon"><img src="${entry.icon}" alt="${escapeHTML(entry.name)} 图标" loading="lazy" onerror="this.parentElement.innerHTML='<span class=&quot;system-symbol&quot;>${escapeHTML(entry.symbol)}</span>'"></div>`
+          : entry.image
+            ? `<div class="system-visual"><img src="${entry.image}" alt="${escapeHTML(entry.name)} 配图" loading="lazy" onerror="this.parentElement.innerHTML='<span class=&quot;system-symbol&quot;>${escapeHTML(entry.symbol)}</span>'"></div>`
+            : `<div class="system-visual"><span class="system-symbol">${escapeHTML(entry.symbol)}</span></div>`;
+        const tags = (entry.tags || []).map((tag) => `<span class="system-tag">${escapeHTML(tag)}</span>`).join("");
+        return `
+          <article class="system-card" data-source="${entry.source}" data-category="${entry.category}">
+            ${visual}
+            <div class="system-card-body">
+              <div class="system-card-head">
+                <h3>${escapeHTML(entry.name)}</h3>
+                <span class="system-type">${escapeHTML(entry.typeLabel)}</span>
+              </div>
+              <p>${escapeHTML(entry.summary)}</p>
+              <div class="system-tags">${tags}</div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    async function loadGameSystems() {
+      state.systemEntries = createMechanicEntries();
+      renderSystemOptions();
+      renderSystems();
+
+      try {
+        const [itemData, summonerData] = await Promise.all([
+          fetchJson(`${DDRAGON}/cdn/${state.version}/data/${LOCALE}/item.json`),
+          fetchJson(`${DDRAGON}/cdn/${state.version}/data/${LOCALE}/summoner.json`)
+        ]);
+        const itemEntries = createItemEntries(itemData.data || {});
+        const summonerEntries = createSummonerEntries(summonerData.data || {});
+        state.systemEntries = [
+          ...createMechanicEntries(),
+          ...summonerEntries,
+          ...itemEntries
+        ];
+        els.systemsNotice.textContent = `已加载 Riot Data Dragon ${state.version} 的 ${itemEntries.length} 件装备与 ${summonerEntries.length} 个召唤师技能，并整理 ${STATIC_GAME_SYSTEMS.length} 条游戏机制卡片。`;
+        renderSystems();
+      } catch (error) {
+        console.error(error);
+        els.systemsNotice.textContent = "装备或召唤师技能暂时无法从 Riot Data Dragon 加载；当前先显示机制卡片，刷新或联网后会自动补齐官方数据。";
+        renderSystems();
+      }
+    }
+
     function renderRegions() {
       els.regionsGrid.innerHTML = REGIONS.map((region) => `
         <article class="region-card">
@@ -2075,6 +2772,25 @@
     function wireEvents() {
       els.themeToggle.addEventListener("click", () => {
         applyTheme(getCurrentTheme() === "light" ? "dark" : "light");
+      });
+      els.systemSearchInput.addEventListener("input", (event) => {
+        state.systemQuery = event.target.value.trim();
+        renderSystems();
+      });
+      els.systemCategorySelect.addEventListener("change", (event) => {
+        state.systemCategory = event.target.value;
+        renderSystems();
+      });
+      els.systemSourceSelect.addEventListener("change", (event) => {
+        state.systemSource = event.target.value;
+        renderSystems();
+      });
+      els.systemChips.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-system-category]");
+        if (!button) return;
+        state.systemCategory = button.dataset.systemCategory;
+        els.systemCategorySelect.value = state.systemCategory;
+        renderSystems();
       });
       els.searchInput.addEventListener("input", (event) => {
         state.query = event.target.value.trim();
