@@ -30,7 +30,7 @@ assets/styles.css
 assets/app.js
 ```
 
-这个网站是纯静态网站，没有数据库、没有后端服务。主要内容通过浏览器实时读取 Riot Data Dragon、官方图片 CDN、官方技能视频资源，以及国服官方资料链接。
+这个网站是纯静态网站，没有数据库、没有后端服务。主要内容通过浏览器实时读取 Riot Data Dragon、官方图片 CDN、官方技能视频资源、国服官方资料链接，以及用于系统卡片配图的 CommunityDragon 客户端资产镜像。
 
 ## 2. 新电脑需要准备什么
 
@@ -134,6 +134,7 @@ http://127.0.0.1:4173/
 ```text
 不要把非官方资料随便写进背景故事。
 英雄技能、英雄简介、图标和原画优先继续使用 Riot Data Dragon。
+系统卡片的野怪、防御塔、建筑和龙类配图可以使用 CommunityDragon 客户端资产镜像，但不要把它描述成 Riot 官方站点；页面文案需要明确它是客户端资产镜像。
 中文官方外链优先使用 lol.qq.com 和 yz.lol.qq.com。
 如果某些技能视频无法加载，不要用第三方剪辑替代；保留官方页回退入口。
 ```
@@ -277,10 +278,12 @@ git push origin main:gh-pages
 要求：
 1. 这是一个纯静态 HTML 网站，多页面结构；页面改 HTML，样式改 assets/styles.css，逻辑改 assets/app.js。
 2. 英雄资料、技能、图标、原画必须优先来自 Riot Data Dragon。
-3. 背景故事和世界观不能杜撰；中文官方入口优先使用 lol.qq.com 与 yz.lol.qq.com。
-4. 技能演示视频只使用官方资源路径；加载失败时显示官方页面入口，不用第三方视频替代。
-5. 修改后先本地预览，再运行 scripts/sync.ps1 同步到 GitHub Pages。
-6. 同步时必须推送 main，并同步 main 到 gh-pages：
+3. Data Dragon 没有覆盖的野怪、防御塔、龙类和建筑配图，可以使用可对应到游戏对象文件名的客户端资产镜像。
+4. 龙魂、地图机制等精确数值不要凭印象写；每次更新都要重新核对公开游戏资料或官方版本说明。
+5. 背景故事和世界观不能杜撰；中文官方入口优先使用 lol.qq.com 与 yz.lol.qq.com。
+6. 技能演示视频只使用官方资源路径；加载失败时显示官方页面入口，不用第三方视频替代。
+7. 修改后先本地预览，再运行 scripts/sync.ps1 同步到 GitHub Pages。
+8. 同步时必须推送 main，并同步 main 到 gh-pages：
    git push origin main
    git push origin main:gh-pages
 ```

@@ -17,7 +17,7 @@ assets/          公共样式和脚本
 
 ## 本地打开
 
-直接双击 `index.html` 即可。页面会联网读取 Riot Data Dragon、官方图片与官方技能视频资源。
+直接双击 `index.html` 即可。页面会联网读取 Riot Data Dragon、官方图片、官方技能视频资源，以及用于系统卡片配图的客户端资产镜像。
 
 ## 发布到 GitHub Pages
 

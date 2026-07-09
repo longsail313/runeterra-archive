@@ -1,4 +1,5 @@
     const DDRAGON = "https://ddragon.leagueoflegends.com";
+    const CDRAGON = "https://raw.communitydragon.org/latest";
     const DEFAULT_VERSION = "16.12.1";
     const LOCALE = "zh_CN";
     const ROLE_LABELS = {
@@ -402,7 +403,8 @@
         name: "召唤师峡谷",
         summary: "经典 5v5 地图，由三条兵线、双方野区、龙坑、男爵坑和基地组成。核心胜利条件是推进兵线、摧毁防御建筑，并最终摧毁敌方水晶枢纽。",
         tags: ["5v5", "地图", "推塔"],
-        image: "map"
+        image: "map",
+        visualMode: "cover"
       },
       {
         type: "mechanic",
@@ -410,6 +412,7 @@
         name: "水晶枢纽",
         summary: "每个基地的最终核心目标。队伍必须先突破兵线与防御建筑，才能威胁敌方水晶枢纽；摧毁敌方水晶枢纽即可赢得对局。",
         tags: ["基地", "胜利条件", "核心目标"],
+        image: "characters/nexus/hud/nexus_blue_square.png",
         symbol: "N"
       },
       {
@@ -418,6 +421,7 @@
         name: "防御塔",
         summary: "防御塔保护兵线、野区入口和基地，是推进节奏的关键节点。越塔、拆塔、换塔和利用兵线承伤，都是召唤师峡谷的核心决策。",
         tags: ["外塔", "内塔", "高地塔", "门牙塔"],
+        image: "characters/sruap_turret_order5/hud/turret_blue_square.png",
         symbol: "T"
       },
       {
@@ -426,6 +430,7 @@
         name: "防御塔镀层",
         summary: "对局前期防御塔拥有镀层奖励。围绕镀层形成的推线、支援、先锋和换线决策，会直接影响前期经济差。",
         tags: ["前期经济", "推线", "防御塔奖励"],
+        image: "characters/preseason_turret_shield/hud/preseason_turret_shield_square_0.png",
         symbol: "P"
       },
       {
@@ -434,6 +439,7 @@
         name: "召唤水晶",
         summary: "高地建筑被摧毁后，敌方对应兵线会出现更强的超级兵压力。召唤水晶会在一段时间后重生，因此破高地后的推进窗口很重要。",
         tags: ["高地", "超级兵", "兵线压力"],
+        image: "characters/inhibitor/hud/inhibitor_blue_square.png",
         symbol: "I"
       },
       {
@@ -442,6 +448,7 @@
         name: "小兵与兵线",
         summary: "小兵提供金币、经验和推塔承伤。控线、推线、慢推、回推和卡线会影响换血、游走、回城与争夺地图目标的时机。",
         tags: ["近战兵", "远程兵", "炮车兵", "超级兵"],
+        image: "characters/sru_orderminionsiege/hud/bluemechcannon_square.png",
         symbol: "M"
       },
       {
@@ -450,6 +457,7 @@
         name: "回城与补给",
         summary: "回城让英雄返回泉水购买装备和恢复状态。好的回城时间通常建立在兵线处理、视野安全和目标刷新节奏之上。",
         tags: ["回城", "泉水", "补给"],
+        image: "ux/cherry/augments/icons/homeguard_large.png",
         symbol: "B"
       },
       {
@@ -458,6 +466,7 @@
         name: "金币、经验与等级",
         summary: "英雄通过补刀、击杀、助攻、防御塔、野怪和地图目标获得资源。装备强度与等级成长共同决定中后期作战能力。",
         tags: ["金币", "经验", "等级"],
+        image: "ux/floatingtext/goldicon.png",
         symbol: "G"
       },
       {
@@ -466,6 +475,7 @@
         name: "赏金与终结",
         summary: "连续领先的英雄或队伍可能产生额外赏金。落后方通过终结、换资源和争夺关键目标，有机会缩小经济差。",
         tags: ["英雄赏金", "目标赏金", "翻盘"],
+        image: "ux/minimap/icons/tower_blue_bounty.png",
         symbol: "$"
       },
       {
@@ -474,6 +484,7 @@
         name: "战争迷雾",
         summary: "地图上未被己方单位、守卫或技能揭示的位置会被战争迷雾覆盖。视野信息决定埋伏、绕后、开团和争夺龙男爵的安全性。",
         tags: ["视野", "信息", "地图控制"],
+        image: "characters/sru_plant_vision/hud/sru_plant_vision_circle.png",
         symbol: "?"
       },
       {
@@ -482,6 +493,7 @@
         name: "守卫与饰品",
         summary: "侦查守卫、控制守卫和饰品是视野体系的基础。进攻眼位、河道眼位、野区入口眼位和排眼，会改变目标争夺的风险。",
         tags: ["侦查守卫", "控制守卫", "饰品"],
+        image: "characters/visionward/hud/visionward_square.png",
         symbol: "W"
       },
       {
@@ -490,7 +502,7 @@
         name: "基础野怪营地",
         summary: "野区营地为打野和队伍提供经验、金币与节奏。常见营地包括锋喙鸟、暗影狼、魔沼蛙、石甲虫等，路线规划会影响抓人和目标控制。",
         tags: ["野区", "刷野", "路线"],
-        image: "map"
+        image: "characters/sru_murkwolf/hud/greatermurkwolf_square.png"
       },
       {
         type: "mechanic",
@@ -498,6 +510,7 @@
         name: "苍蓝雕纹魔像",
         summary: "蓝色增益相关营地通常围绕法力、技能循环和野区控制展开。中单、打野与队伍节奏经常会围绕蓝区资源分配做决策。",
         tags: ["蓝 Buff", "野区资源", "技能循环"],
+        image: "characters/sru_blue/hud/bluesentinel_square.png",
         symbol: "B"
       },
       {
@@ -506,6 +519,7 @@
         name: "绯红印记树怪",
         summary: "红色增益相关营地通常强化普攻追击、留人和前期对抗。红区控制也常与下路、上路抓人路线绑定。",
         tags: ["红 Buff", "追击", "对抗"],
+        image: "characters/sru_red/hud/brambleback_square.png",
         symbol: "R"
       },
       {
@@ -514,6 +528,7 @@
         name: "峡谷迅捷蟹",
         summary: "河道目标会提供河道视野与节奏价值。中野联动、线权和河道站位，常决定迅捷蟹争夺是否安全。",
         tags: ["河道", "线权", "视野"],
+        image: "characters/sru_crab/hud/crab_square_0.png",
         symbol: "S"
       },
       {
@@ -522,6 +537,7 @@
         name: "虚空巢虫",
         summary: "男爵坑前期史诗目标之一。击杀后队伍获得用于推进的虚空主题增益，并让上半区在前期拥有明确争夺价值。",
         tags: ["上半区", "史诗野怪", "推塔"],
+        image: "characters/sru_horde/hud/sru_voidgrub_square.png",
         symbol: "V"
       },
       {
@@ -530,7 +546,17 @@
         name: "峡谷先锋",
         summary: "中期出现在男爵坑的史诗目标，击败后可围绕先锋进行推进、撞塔和打开边路缺口。",
         tags: ["先锋", "撞塔", "中期节奏"],
+        image: "characters/sru_riftherald/hud/sruriftherald_square.png",
         symbol: "H"
+      },
+      {
+        type: "mechanic",
+        category: "epic",
+        name: "阿塔坎",
+        summary: "中后期出现在河道史诗野怪坑附近的高价值目标。不同形态会改变击杀后的团队奖励，争夺前通常需要先处理兵线与河道视野。",
+        tags: ["阿塔坎", "史诗野怪", "团队目标"],
+        image: "characters/sru_atakhan/hud/atakhan_v_square_128.png",
+        symbol: "A"
       },
       {
         type: "mechanic",
@@ -538,70 +564,79 @@
         name: "纳什男爵",
         summary: "后期最重要的史诗野怪之一。男爵增益通常用于强化推进、分带汇合和结束比赛，但争夺前需要视野与兵线准备。",
         tags: ["男爵", "推进", "后期目标"],
+        image: "characters/sru_baron/hud/baron_square.png",
         symbol: "B"
       },
       {
         type: "mechanic",
         category: "dragon",
         name: "元素亚龙",
-        summary: "龙坑中的主要史诗目标。击杀元素亚龙会为队伍提供可叠加的元素收益，并推动双方围绕下半区视野、线权和团战站位博弈。",
+        summary: "击杀元素亚龙会叠加团队增益：炼狱龙提供攻击力与法术强度，山脉龙提供护甲与魔抗，海洋龙提供每 5 秒回复已损生命值，云端龙提供减速抗性和脱战移速，海克斯龙提供技能急速与攻击速度，炼金龙提供韧性和治疗/护盾强度。",
         tags: ["龙坑", "元素增益", "团队目标"],
+        image: "characters/sru_dragon/hud/dragon_square.png",
         symbol: "D"
       },
       {
         type: "mechanic",
         category: "dragon",
         name: "龙魂",
-        summary: "当队伍取得足够元素亚龙层数后，会获得对应元素龙魂。龙魂通常是永久且强力的团队奖励，经常改变后续团战胜负。",
+        summary: "队伍获得 4 层元素亚龙后，会取得对应龙魂。龙魂永久生效，具体数值按当前游戏数据列在各元素龙魂卡片中。",
         tags: ["永久奖励", "团队强化", "胜负转折"],
+        image: "ux/minimap/icons/dragon_elder_bounty.png",
         symbol: "Ω"
       },
       {
         type: "mechanic",
         category: "dragon",
         name: "炼狱龙魂",
-        summary: "伤害型技能或攻击命中敌人时，会触发一次范围爆炸，对目标周围敌人造成自适应伤害。",
+        summary: "每 3 秒，伤害型普攻或技能命中敌人会触发爆炸，造成 100（+22.5% 额外攻击力）（+13.5% 法术强度）（+2.75% 额外生命值）自适应伤害。",
         tags: ["炼狱", "伤害", "龙魂"],
+        image: "characters/sru_dragon_fire/hud/dragon_square_fire.png",
         symbol: "火"
       },
       {
         type: "mechanic",
         category: "dragon",
         name: "山脉龙魂",
-        summary: "一段时间未受到伤害后，英雄会获得护盾。进入团战前保留护盾，能提升先手和承伤能力。",
+        summary: "5 秒未受到伤害后，获得 220（+16% 额外攻击力）（+12% 法术强度）（+12% 额外生命值）护盾。",
         tags: ["山脉", "生存", "龙魂"],
+        image: "characters/sru_dragon_earth/hud/dragon_square_earth.png",
         symbol: "山"
       },
       {
         type: "mechanic",
         category: "dragon",
         name: "海洋龙魂",
-        summary: "对敌方英雄造成伤害后，会在短时间内回复生命值和资源，让队伍在拉扯与持续作战中更难被消耗出场。",
+        summary: "对敌人造成伤害后，4 秒内治疗 150（+26% 额外攻击力）（+17% 法术强度）（+7% 额外生命值）生命值，并回复 100（+3.5% 最大法力值）法力；对小兵与野怪为 30% 效率。",
         tags: ["海洋", "回复", "龙魂"],
+        image: "characters/sru_dragon_water/hud/dragon_square_water.png",
         symbol: "海"
       },
       {
         type: "mechanic",
         category: "dragon",
         name: "云端龙魂",
-        summary: "施放终极技能后获得移动速度增益，常用于追击、撤退、转线和团战进出场。",
+        summary: "获得 15% 移动速度。施放终极技能后，移动速度提升至 60%，持续 6 秒；该强化有 30 秒冷却。",
         tags: ["云端", "机动", "龙魂"],
+        image: "characters/sru_dragon_air/hud/dragon_air_square.png",
         symbol: "云"
       },
       {
         type: "mechanic",
         category: "dragon",
         name: "海克斯龙魂",
-        summary: "攻击或技能命中敌人时，会释放连锁闪电并施加减速，适合在团战中扩大命中后的连锁控制和输出。",
+        summary: "伤害命中敌人会释放连锁电击，造成 25-50（基于等级）真实伤害，并使近战目标减速 45%、远程目标减速 35%，减速随时间衰减；8 秒冷却。",
         tags: ["海克斯", "连锁", "龙魂"],
+        image: "characters/sru_dragon_hextech/hud/icons2d/dragon_square_hextech.png",
         symbol: "电"
       },
       {
         type: "mechanic",
         category: "dragon",
         name: "炼金龙魂",
-        summary: "围绕低生命值作战和炼金主题强化生存表现，常影响残血反打、持续站场和团战容错。",
+        summary: "当英雄生命值低于 50% 最大生命值时，获得 13% 伤害提升与 13% 伤害减免。",
         tags: ["炼金", "韧性", "龙魂"],
+        image: "characters/sru_dragon_chemtech/hud/icons2d/dragon_square_chemtech.png",
         symbol: "毒"
       },
       {
@@ -610,6 +645,7 @@
         name: "远古巨龙",
         summary: "在龙魂阶段后出现的高价值史诗目标，通常提供极强的终结能力。远古龙争夺往往需要全队视野、兵线和召唤师技能准备。",
         tags: ["远古龙", "终结", "后期目标"],
+        image: "characters/sru_dragon_elder/hud/dragon_square_elder.png",
         symbol: "E"
       }
     ];
@@ -727,6 +763,17 @@
 
     function mapImageUrl() {
       return `${DDRAGON}/cdn/${state.version}/img/map/map11.png`;
+    }
+
+    function cdragonAsset(path) {
+      return `${CDRAGON}/game/assets/${path}`;
+    }
+
+    function systemImageUrl(value) {
+      if (!value) return "";
+      if (value === "map") return mapImageUrl();
+      if (/^https?:\/\//i.test(value)) return value;
+      return cdragonAsset(value);
     }
 
     function regionOf(champion) {
@@ -1102,7 +1149,8 @@
         name: entry.name,
         summary: entry.summary,
         tags: [systemCategoryLabel(entry.category), ...(entry.tags || [])],
-        image: mapImageUrl(),
+        image: systemImageUrl(entry.image),
+        visualMode: entry.visualMode || "object",
         imagePosition: entry.imagePosition || imagePositionByCategory[entry.category] || "50% 50%",
         icon: "",
         symbol: entry.symbol || "L"
@@ -1210,6 +1258,32 @@
       ].reduce((total, value) => total + value, 0);
     }
 
+    function buildItemTree(id, itemMap, seen = new Set()) {
+      const item = itemMap.get(id);
+      if (!item?.image?.full || seen.has(id)) return null;
+      const nextSeen = new Set(seen);
+      nextSeen.add(id);
+      const children = (item.from || [])
+        .map((childId) => buildItemTree(childId, itemMap, nextSeen))
+        .filter(Boolean);
+      return {
+        id,
+        name: cleanItemName(item.name),
+        icon: itemIconUrl(item),
+        totalPrice: Number(item.gold?.total || 0),
+        basePrice: Number(item.gold?.base || 0),
+        children
+      };
+    }
+
+    function flattenBuildTreeNames(node) {
+      if (!node) return [];
+      return [
+        node.name,
+        ...node.children.flatMap((child) => flattenBuildTreeNames(child))
+      ].filter(Boolean);
+    }
+
     function createShopItemEntries(items) {
       const rawEntries = Object.entries(items)
         .filter(([, item]) => item?.image?.full && item?.maps?.["11"] && !item.hideFromAll && item.name)
@@ -1227,6 +1301,7 @@
       const entries = [...byName.values()].map(({ id, item, name }) => {
         const parsed = parseItemDescription(item.description || item.plaintext || "");
         const category = itemCategoryKey(item.tags || []);
+        const buildTree = buildItemTree(id, rawById);
         const from = (item.from || []).map((componentId) => {
           const component = rawById.get(componentId);
           if (!component?.image?.full) return null;
@@ -1255,6 +1330,7 @@
           effectLines: parsed.effectLines,
           from,
           into,
+          buildTree,
           tags,
           searchText: normalize([
             name,
@@ -1265,6 +1341,7 @@
             ...parsed.statsLines,
             ...parsed.effectLines,
             ...from.map((component) => component.name),
+            ...flattenBuildTreeNames(buildTree),
             ...into
           ].join(" "))
         };
@@ -1344,10 +1421,11 @@
       }
 
       els.systemsGrid.innerHTML = visible.map((entry) => {
+        const visualClass = escapeHTML(entry.visualMode || "object");
         const visual = entry.icon
           ? `<div class="system-visual icon"><img src="${entry.icon}" alt="${escapeHTML(entry.name)} 图标" loading="lazy" onerror="this.parentElement.innerHTML='<span class=&quot;system-symbol&quot;>${escapeHTML(entry.symbol)}</span>'"></div>`
           : entry.image
-            ? `<div class="system-visual"><img src="${entry.image}" alt="${escapeHTML(entry.name)} 配图" loading="lazy" style="object-position: ${escapeHTML(entry.imagePosition || "50% 50%")}" onerror="this.parentElement.innerHTML='<span class=&quot;system-symbol&quot;>${escapeHTML(entry.symbol)}</span>'"></div>`
+            ? `<div class="system-visual ${visualClass}"><img src="${entry.image}" alt="${escapeHTML(entry.name)} 配图" loading="lazy" style="object-position: ${escapeHTML(entry.imagePosition || "50% 50%")}" onerror="this.parentElement.innerHTML='<span class=&quot;system-symbol&quot;>${escapeHTML(entry.symbol)}</span>'"></div>`
             : `<div class="system-visual"><span class="system-symbol">${escapeHTML(entry.symbol)}</span></div>`;
         const tags = (entry.tags || []).map((tag) => `<span class="system-tag">${escapeHTML(tag)}</span>`).join("");
         return `
@@ -1378,7 +1456,7 @@
           ...createMechanicEntries(),
           ...summonerEntries
         ];
-        els.systemsNotice.textContent = `已加载 Riot Data Dragon ${state.version} 的 ${summonerEntries.length} 个召唤师技能，并整理 ${STATIC_GAME_SYSTEMS.length} 条游戏机制卡片。装备请进入独立装备资料库查看。`;
+        els.systemsNotice.textContent = `已加载 Riot Data Dragon ${state.version} 的 ${summonerEntries.length} 个召唤师技能，并整理 ${STATIC_GAME_SYSTEMS.length} 条游戏机制卡片。机制配图使用 Data Dragon 与可对应游戏对象的客户端资产镜像；装备请进入独立装备资料库查看。`;
         renderSystems();
       } catch (error) {
         console.error(error);
@@ -1393,6 +1471,24 @@
       return entry.searchText.includes(normalize(state.itemQuery));
     }
 
+    function renderBuildNode(node, isRoot = false) {
+      if (!node) return "";
+      const children = node.children.length
+        ? `<div class="item-build-children">${node.children.map((child) => renderBuildNode(child)).join("")}</div>`
+        : "";
+      const price = node.totalPrice > 0 ? `${node.totalPrice} 金币` : "无价格";
+      return `
+        <div class="item-build-node ${isRoot ? "is-root" : ""}">
+          <div class="item-build-entry">
+            <img src="${node.icon}" alt="${escapeHTML(node.name)} 图标" loading="lazy">
+            <span>${escapeHTML(node.name)}</span>
+            <small>${escapeHTML(price)}</small>
+          </div>
+          ${children}
+        </div>
+      `;
+    }
+
     function renderItemTooltip(entry) {
       const stats = entry.statsLines.length
         ? `<div class="item-tooltip-section"><strong>基础数值</strong><ul class="item-stat-list">${entry.statsLines.map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul></div>`
@@ -1400,8 +1496,8 @@
       const effects = entry.effectLines.length
         ? `<div class="item-tooltip-section"><strong>效果</strong><ul class="item-effect-list">${entry.effectLines.map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul></div>`
         : "";
-      const route = entry.from.length
-        ? `<div class="item-tooltip-section"><strong>合成路线</strong><div class="item-components">${entry.from.map((component) => `<img class="item-component" src="${component.icon}" alt="${escapeHTML(component.name)}" title="${escapeHTML(component.name)}" loading="lazy">`).join("")}</div></div>`
+      const route = entry.buildTree?.children?.length
+        ? `<div class="item-tooltip-section"><strong>合成路线</strong><div class="item-build-tree">${renderBuildNode(entry.buildTree, true)}</div></div>`
         : `<div class="item-tooltip-section"><strong>合成路线</strong><span class="item-empty-route">基础装备或无需组件。</span></div>`;
       return `
         <div class="item-tooltip" role="tooltip">
