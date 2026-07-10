@@ -138,6 +138,13 @@
       display: flex;
       gap: 12px;
       align-items: center;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .brand:hover .brand-title strong,
+    .brand:focus-visible .brand-title strong {
+      color: var(--gold);
     }
 
     .brand-mark {

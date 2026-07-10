@@ -879,6 +879,19 @@
       }
     }
 
+    async function loadChampionMetrics() {
+      if (!els.countMetric) return;
+      await prepareVersion();
+      try {
+        const data = await fetchJson(`${DDRAGON}/cdn/${state.version}/data/${LOCALE}/champion.json`);
+        const champions = Object.values(data.data || {});
+        els.countMetric.textContent = `${champions.length} 位`;
+      } catch (error) {
+        console.error(error);
+        els.countMetric.textContent = "未连接";
+      }
+    }
+
     async function loadChampionDetail(id) {
       if (state.details.has(id)) return state.details.get(id);
       const data = await fetchJson(`${DDRAGON}/cdn/${state.version}/data/${LOCALE}/champion/${id}.json`);
@@ -958,7 +971,9 @@
 
     function renderDetailLoading(champion) {
       state.selectedId = champion.id;
-      els.hero.style.setProperty("--hero-image", `url('${splashUrl(champion.id)}')`);
+      if (els.hero) {
+        els.hero.style.setProperty("--hero-image", `url('${splashUrl(champion.id)}')`);
+      }
       renderChampionGrid();
       els.championDetail.innerHTML = `
         <div class="detail-hero" style="--detail-image: url('${splashUrl(champion.id)}')">
@@ -1020,7 +1035,9 @@
 
       const detailUrl = leagueChampionUrl(champion);
       const universeUrl = "https://yz.lol.qq.com/zh_CN/champions/";
-      els.hero.style.setProperty("--hero-image", `url('${splashUrl(champion.id)}')`);
+      if (els.hero) {
+        els.hero.style.setProperty("--hero-image", `url('${splashUrl(champion.id)}')`);
+      }
       els.championDetail.innerHTML = `
         <div class="detail-hero" style="--detail-image: url('${splashUrl(champion.id)}')">
           <div class="detail-hero-content">
@@ -1645,6 +1662,7 @@
         await loadChampions();
       } else {
         await prepareVersion();
+        await loadChampionMetrics();
       }
       if (els.systemsGrid) {
         await loadGameSystems();
