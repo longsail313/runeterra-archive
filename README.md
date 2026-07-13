@@ -2,6 +2,10 @@
 
 这是一个静态 HTML 网站，可以直接用浏览器打开，也可以发布到 GitHub Pages、Vercel、Netlify、Cloudflare Pages 等静态网站平台。
 
+## 在线访问
+
+[**点击打开网站 →**](https://longsail313.github.io/runeterra-archive/)
+
 主要页面：
 
 ```text
